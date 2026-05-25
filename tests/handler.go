@@ -30,9 +30,9 @@ func ShowTests(c *gin.Context) {
 		return
 	}
 
-	var results []TestResult
-
 	lines := splitLines(string(file))
+
+	testMap := make(map[string]TestResult)
 
 	for _, line := range lines {
 
@@ -43,13 +43,23 @@ func ShowTests(c *gin.Context) {
 			&result,
 		)
 
-		if err == nil && result.Test != "" {
+		if err == nil &&
+			result.Test != "" &&
+			(result.Action == "pass" ||
+				result.Action == "fail") {
 
-			results = append(
-				results,
-				result,
-			)
+			testMap[result.Test] = result
 		}
+	}
+
+	var results []TestResult
+
+	for _, result := range testMap {
+
+		results = append(
+			results,
+			result,
+		)
 	}
 
 	c.HTML(
