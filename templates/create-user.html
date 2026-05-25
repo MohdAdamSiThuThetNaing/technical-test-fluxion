@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Create User</title>
+
+    <meta charset="UTF-8" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/@tabler/core@latest/dist/css/tabler.min.css"
+      rel="stylesheet"
+    />
+
+    <style>
+      body {
+        background: #f5f7fb;
+      }
+
+      .page-card {
+        border-radius: 20px;
+      }
+
+      .navbar-user {
+        color: white;
+        font-weight: 600;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="page">
+      <div class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div
+          class="container-xl d-flex justify-content-between align-items-center"
+        >
+          <a href="/" class="navbar-brand text-white text-decoration-none">
+            Fluxion Dashboard
+          </a>
+
+          <div class="d-flex align-items-center gap-3">
+            <a href="/" class="btn btn-light"> 🏠 Dashboard </a>
+
+            <span class="navbar-user"> Admin Logged In </span>
+
+            <a href="/logout" class="btn btn-danger"> Logout </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="container-xl mt-5">
+        <div class="row justify-content-center">
+          <div class="col-lg-6">
+            <div class="card page-card shadow-sm">
+              <div class="card-body p-5">
+                <div class="text-center mb-4">
+                  <h1 class="mb-2">➕ Create User</h1>
+
+                  <p class="text-secondary">
+                    Create a new user account for the platform
+                  </p>
+                </div>
+
+                <form method="POST" action="/users/create">
+                  <div class="mb-4">
+                    <label class="form-label"> Full Name </label>
+
+                    <input
+                      type="text"
+                      name="name"
+                      class="form-control form-control-lg"
+                      placeholder="Enter full name"
+                      required
+                    />
+                  </div>
+
+                  <div class="mb-4">
+                    <label class="form-label"> Email Address </label>
+
+                    <input
+                      type="email"
+                      name="email"
+                      class="form-control form-control-lg"
+                      placeholder="Enter email address"
+                      required
+                    />
+                  </div>
+
+                  <div class="mb-4">
+                    <label class="form-label"> Password </label>
+
+                    <input
+                      type="password"
+                      name="password"
+                      class="form-control form-control-lg"
+                      placeholder="Enter password"
+                      required
+                    />
+                  </div>
+
+                  <div class="d-flex gap-3">
+                    <button type="submit" class="btn btn-primary btn-lg">
+                      ✅ Create User
+                    </button>
+
+                    <a href="/users" class="btn btn-secondary btn-lg">
+                      👥 Back to Users
+                    </a>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
