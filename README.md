@@ -1,9 +1,8 @@
 # Fluxion AI-Driven assessment
 
-I am using Macos so must be working CPU.
-A Docker-based background worker service using MongoDB, RabbitMQ, and Python workers for processing logs, OCR tasks, and background jobs.
+## I am using Macos so must be working CPU.
 
----
+A Docker-based background worker service using MongoDB, RabbitMQ, and Python workers for processing logs, OCR tasks, and background jobs.
 
 # Prerequisites
 
