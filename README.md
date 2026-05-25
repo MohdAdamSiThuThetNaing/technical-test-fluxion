@@ -123,6 +123,7 @@ go test ./... -v
 
 # Project Structure
 
+```text
 .
 ├── Dockerfile
 ├── Makefile
@@ -164,6 +165,7 @@ go test ./... -v
 ├── repository_test.go
 ├── routes.go
 └── user_service_test.go
+```
 
 ---
 
