@@ -1,0 +1,75 @@
+{{ template "header" . }}
+
+<div class="container-xl mt-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-6">
+      <div class="card page-card shadow-sm">
+        <div class="card-body p-5">
+          <div class="text-center mb-4">
+            <h1 class="mb-2">➕ Create User</h1>
+
+            <p class="text-secondary">
+              Create a new user account for the platform
+            </p>
+          </div>
+
+          {{ if .Error }}
+
+          <div class="alert alert-danger mb-4">{{ .Error }}</div>
+
+          {{ end }}
+
+          <form method="POST" action="/users/create">
+            <div class="mb-4">
+              <label class="form-label"> Full Name </label>
+
+              <input
+                type="text"
+                name="name"
+                class="form-control form-control-lg"
+                placeholder="Enter full name"
+                required
+              />
+            </div>
+
+            <div class="mb-4">
+              <label class="form-label"> Email Address </label>
+
+              <input
+                type="email"
+                name="email"
+                class="form-control form-control-lg"
+                placeholder="Enter email address"
+                required
+              />
+            </div>
+
+            <div class="mb-4">
+              <label class="form-label"> Password </label>
+
+              <input
+                type="password"
+                name="password"
+                class="form-control form-control-lg"
+                placeholder="Enter password"
+                required
+              />
+            </div>
+
+            <div class="d-flex gap-3">
+              <button type="submit" class="btn btn-primary btn-lg">
+                Create User
+              </button>
+
+              <a href="/users" class="btn btn-secondary btn-lg">
+                Back to Users
+              </a>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{{ template "footer" . }}

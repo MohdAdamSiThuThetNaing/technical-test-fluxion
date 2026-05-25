@@ -1,0 +1,61 @@
+{{ template "header" . }}
+
+<div class="container-xl mt-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-6">
+      <div class="card page-card shadow-sm">
+        <div class="card-body p-5">
+          <div class="text-center mb-4">
+            <h1 class="mb-2">✏️ Edit User</h1>
+
+            <p class="text-secondary">Update user account information</p>
+          </div>
+
+          {{ if .Error }}
+
+          <div class="alert alert-danger mb-4">{{ .Error }}</div>
+
+          {{ end }}
+
+          <form method="POST" action="/users/edit/{{ .User.ID }}">
+            <div class="mb-4">
+              <label class="form-label"> Full Name </label>
+
+              <input
+                type="text"
+                name="name"
+                class="form-control form-control-lg"
+                value="{{ .User.Name }}"
+                required
+              />
+            </div>
+
+            <div class="mb-4">
+              <label class="form-label"> Email Address </label>
+
+              <input
+                type="email"
+                name="email"
+                class="form-control form-control-lg"
+                value="{{ .User.Email }}"
+                required
+              />
+            </div>
+
+            <div class="d-flex gap-3">
+              <button type="submit" class="btn btn-primary btn-lg">
+                Update User
+              </button>
+
+              <a href="/users" class="btn btn-secondary btn-lg">
+                Back to Users
+              </a>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{{ template "footer" . }}

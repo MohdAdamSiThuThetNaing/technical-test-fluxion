@@ -123,38 +123,47 @@ go test ./... -v
 
 # Project Structure
 
-```text
 .
-├── cmd/
-│   ├── api/
-│   │   └── main.go
-│   └── worker/
-│       └── main.go
-├── docs/
-├── internal/
-│   ├── ai/
-│   ├── auth/
-│   ├── db/
-│   ├── guard/
-│   ├── logs/
-│   ├── queue/
-│   └── users/
-├── templates/
-├── tests/
-│   ├── ai_test.go
-│   ├── queue_test.go
-│   └── user_service_test.go
-├── .env
-├── .env.example
-├── .gitignore
-├── docker-compose.yml
 ├── Dockerfile
+├── Makefile
+├── README.md
+├── api/
+├── cmd/
+│ ├── api/
+│ │ └── main.go
+│ └── worker/
+│ └── main.go
+├── docker-compose.yml
+├── docs/
 ├── go.mod
 ├── go.sum
-├── Makefile
-└── README.md
-
-```
+├── internal/
+│ ├── ai/
+│ ├── auth/
+│ ├── dashboard/
+│ ├── db/
+│ ├── guard/
+│ ├── logs/
+│ ├── migration/
+│ ├── queue/
+│ └── users/
+├── templates/
+│ ├── dashboard/
+│ ├── layouts/
+│ ├── login.html
+│ ├── logs/
+│ ├── tests/
+│ └── users/
+├── test-results.json
+└── tests/
+├── ai_test.go
+├── handler.go
+├── handler_test.go
+├── logs_test.go
+├── queue_test.go
+├── repository_test.go
+├── routes.go
+└── user_service_test.go
 
 ---
 

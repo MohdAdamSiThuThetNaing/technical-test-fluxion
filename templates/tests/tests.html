@@ -1,0 +1,55 @@
+{{ template "header" . }}
+
+<div class="container-xl mt-5">
+  <div class="card page-card shadow-sm">
+    <div class="card-body p-5">
+      <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+          <h1 class="mb-1">🧪 Unit Test Dashboard</h1>
+
+          <p class="text-secondary mb-0">
+            Automated Go unit and integration test results
+          </p>
+        </div>
+
+        <a href="/" class="btn btn-primary"> 🏠 Back Dashboard </a>
+      </div>
+
+      <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+          <thead>
+            <tr>
+              <th>Test Name</th>
+
+              <th>Status</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            {{ range .Results }}
+
+            <tr>
+              <td>{{ .Test }}</td>
+
+              <td>
+                {{ if eq .Action "pass" }}
+
+                <span class="badge bg-success"> PASS </span>
+
+                {{ else }}
+
+                <span class="badge bg-danger"> FAIL </span>
+
+                {{ end }}
+              </td>
+            </tr>
+
+            {{ end }}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+{{ template "footer" . }}

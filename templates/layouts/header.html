@@ -1,0 +1,55 @@
+{{ define "header" }}
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Fluxion Dashboard</title>
+
+    <meta charset="UTF-8" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/@tabler/core@latest/dist/css/tabler.min.css"
+      rel="stylesheet"
+    />
+
+    <style>
+      body {
+        background: #f5f7fb;
+      }
+
+      .navbar-user {
+        color: white;
+        font-weight: 600;
+      }
+
+      .page-card {
+        border-radius: 20px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="page">
+      <div class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div
+          class="container-xl d-flex justify-content-between align-items-center"
+        >
+          <a href="/" class="navbar-brand text-white text-decoration-none">
+            Fluxion Dashboard
+          </a>
+
+          <div class="d-flex align-items-center gap-3">
+            <a href="/logs" class="btn btn-light"> 📚 Logs </a>
+            <span class="navbar-user"> Admin Logged In </span>
+
+            <a href="/logout" class="btn btn-light"> Logout </a>
+          </div>
+        </div>
+      </div>
+
+      {{ end }}
+    </div>
+  </body>
+</html>

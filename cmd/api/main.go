@@ -1,6 +1,8 @@
 package main
 
 import (
+	"html/template"
+
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-contrib/sessions/cookie"
 	"github.com/gin-gonic/gin"
@@ -35,7 +37,21 @@ func main() {
 		),
 	)
 
-	r.LoadHTMLGlob("templates/*")
+	// Load root-level templates
+	tmpl := template.Must(
+		template.New("").ParseGlob(
+			"templates/*.html",
+		),
+	)
+
+	// Load nested templates
+	template.Must(
+		tmpl.ParseGlob(
+			"templates/*/*.html",
+		),
+	)
+
+	r.SetHTMLTemplate(tmpl)
 
 	auth.RegisterRoutes(r)
 	dashboard.RegisterRoutes(r)

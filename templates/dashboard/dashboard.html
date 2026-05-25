@@ -1,0 +1,207 @@
+{{ template "header" . }}
+
+<style>
+  .hero-card {
+    border-radius: 20px;
+    background: linear-gradient(135deg, #206bc4, #4299e1);
+    color: white;
+    overflow: hidden;
+  }
+
+  .stat-card {
+    border-radius: 18px;
+    transition: all 0.2s ease;
+  }
+
+  .stat-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  }
+
+  .quick-btn {
+    min-width: 180px;
+    margin-bottom: 10px;
+  }
+
+  .summary-box {
+    background: #ffffff;
+    border-radius: 18px;
+    padding: 20px;
+    border: 1px solid #e6e7ea;
+  }
+</style>
+
+<div class="page-wrapper">
+  <div class="page-body">
+    <div class="container-xl">
+      <div class="card hero-card mb-4">
+        <div class="card-body p-5">
+          <div class="row align-items-center">
+            <div class="col-lg-8">
+              <h1 class="display-5 fw-bold">
+                AI-Powered Fluxion Technical Assessment
+              </h1>
+
+              <p class="mt-3 fs-4">
+                PostgreSQL + MongoDB + RabbitMQ + Ollama AI Integration
+              </p>
+            </div>
+
+            <div class="col-lg-4 text-center">
+              <img
+                src="https://cdn-icons-png.flaticon.com/512/4712/4712109.png"
+                width="180"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row row-deck row-cards">
+        <div class="col-sm-6 col-lg-3">
+          <div class="card stat-card">
+            <div class="card-body">
+              <div class="subheader">Total Users</div>
+
+              <div class="h1 mt-2">👥 {{ .TotalUsers }}</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm-6 col-lg-3">
+          <div class="card stat-card">
+            <div class="card-body">
+              <div class="subheader">AI Service</div>
+
+              <div class="h1 mt-2 text-green">🤖 Active</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm-6 col-lg-3">
+          <div class="card stat-card">
+            <div class="card-body">
+              <div class="subheader">RabbitMQ Queue</div>
+
+              <div class="h1 mt-2 text-blue">📨 Running</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm-6 col-lg-3">
+          <div class="card stat-card">
+            <div class="card-body">
+              <div class="subheader">MongoDB Logs</div>
+
+              <div class="h1 mt-2 text-yellow">📚 Enabled</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card mt-4">
+        <div class="card-header">
+          <h3 class="card-title">⚡ Quick Actions</h3>
+        </div>
+
+        <div class="card-body">
+          <div class="d-flex flex-wrap gap-3">
+            <a href="/users" class="btn btn-primary btn-lg quick-btn">
+              👥 Manage Users
+            </a>
+
+            <a href="/users/create" class="btn btn-success btn-lg quick-btn">
+              ➕ Create User
+            </a>
+
+            <a
+              href="/ai/test"
+              target="_blank"
+              class="btn btn-warning btn-lg quick-btn"
+            >
+              🤖 Test AI Summary
+            </a>
+
+            <a
+              href="http://localhost:15672"
+              target="_blank"
+              class="btn btn-info btn-lg quick-btn"
+            >
+              📨 RabbitMQ Dashboard
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="summary-box mt-4">
+        <h2 class="mb-3">🤖 AI Workflow Summary</h2>
+
+        <p class="text-secondary">
+          This platform demonstrates a complete AI-driven backend workflow
+          using:
+        </p>
+
+        <ul class="fs-5">
+          <li>Gin Framework API</li>
+
+          <li>PostgreSQL relational database</li>
+
+          <li>MongoDB log storage</li>
+
+          <li>RabbitMQ asynchronous event queue</li>
+
+          <li>Ollama local AI model integration</li>
+
+          <li>AI-generated activity summarization</li>
+
+          <li>Docker microservice architecture</li>
+
+          <li>Admin authentication with session middleware</li>
+        </ul>
+      </div>
+
+      <div class="card mt-4">
+        <div class="card-header">
+          <h3 class="card-title">🧪 Unit Test Results</h3>
+        </div>
+
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table table-bordered table-striped">
+              <thead>
+                <tr>
+                  <th>Test Name</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                {{ range .Results }}
+
+                <tr>
+                  <td>{{ .Test }}</td>
+
+                  <td>
+                    {{ if eq .Action "pass" }}
+
+                    <span class="badge bg-success"> PASS </span>
+
+                    {{ else }}
+
+                    <span class="badge bg-danger"> FAIL </span>
+
+                    {{ end }}
+                  </td>
+                </tr>
+
+                {{ end }}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{{ template "footer" . }}
