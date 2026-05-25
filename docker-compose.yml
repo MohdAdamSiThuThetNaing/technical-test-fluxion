@@ -1,0 +1,37 @@
+version: '3.9'
+
+services:
+  postgres:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: users_db
+    ports:
+      - "5432:5432"
+      mongodb:
+    image: mongo:7
+    ports:
+      - "27017:27017"
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+
+  app:
+    build: .
+    depends_on:
+      - postgres
+      - mongodb
+      - rabbitmq
+    ports:
+      - "8080:8080"
+
+  worker:
+    build: .
+    command: ["go", "run", "cmd/worker/main.go"]
+    depends_on:
+      - rabbitmq
+      - mongodb
