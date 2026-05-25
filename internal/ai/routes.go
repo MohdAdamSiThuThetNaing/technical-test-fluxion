@@ -9,15 +9,15 @@ import (
 func RegisterRoutes(r *gin.Engine) {
 
 	aiRoutes := r.Group("/ai")
-	aiRoutes.Use(
-		guard.AuthMiddleware(),
-	)
 
+	// Protected route
 	aiRoutes.GET(
 		"/test",
+		guard.AuthMiddleware(),
 		TestAI,
 	)
-	
+
+	// Public route
 	aiRoutes.POST(
 		"/user-suggestion",
 		SuggestUser,
