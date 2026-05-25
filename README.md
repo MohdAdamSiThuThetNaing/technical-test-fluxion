@@ -218,3 +218,206 @@ go test ./... -v
 # Stop services
 docker compose down
 ```
+
+---
+
+# Architecture Overview
+
+```text
+Client Browser
+      │
+      ▼
+Gin API Server
+      │
+      ├── PostgreSQL (Users)
+      │
+      ├── RabbitMQ Queue
+      │         │
+      │         ▼
+      │    Worker Service
+      │         │
+      │         ▼
+      │     MongoDB Logs
+      │
+      └── Ollama AI Summary
+```
+
+---
+
+# Clean Architecture Layers
+
+```text
+handlers
+    ↓
+services
+    ↓
+repositories
+    ↓
+database
+```
+
+---
+
+# Implemented Design Patterns
+
+- Repository Pattern
+- Service Layer Pattern
+- Middleware Authentication
+- Worker Queue Architecture
+- Dependency Separation
+- Route Grouping
+
+---
+
+# Security Features
+
+- Session-based authentication
+- Protected admin routes
+- Email uniqueness validation
+- Password hashing using bcrypt
+- Environment variable configuration
+- Docker isolated services
+
+---
+
+# AI Integration
+
+The project uses Ollama with the Phi3 model for AI-powered log summarization.
+
+AI features include:
+
+- User activity summarization
+- Admin action analysis
+- Log event summarization
+- Local AI inference without cloud dependency
+
+---
+
+# Background Worker Workflow
+
+```text
+User Action
+    ↓
+RabbitMQ Publish
+    ↓
+Worker Consume
+    ↓
+MongoDB Log Storage
+    ↓
+AI Summary Generation
+```
+
+---
+
+# Test Coverage
+
+Current tests include:
+
+- AI integration test
+- Queue payload test
+- HTTP handler test
+- User service/model test
+
+Run tests:
+
+```bash
+go test ./... -v
+```
+
+Generate coverage:
+
+```bash
+go test ./... -cover
+```
+
+---
+
+# Docker Containers
+
+| Container Name   | Purpose                 |
+| ---------------- | ----------------------- |
+| fluxion_api      | Main API server         |
+| fluxion_worker   | Background worker       |
+| fluxion_postgres | PostgreSQL database     |
+| fluxion_mongodb  | MongoDB logs database   |
+| fluxion_rabbitmq | RabbitMQ message broker |
+| fluxion_ollama   | Ollama AI service       |
+
+---
+
+# Future Improvements
+
+- JWT authentication
+- Role-based access control (RBAC)
+- Swagger/OpenAPI documentation
+- WebSocket real-time logs
+- Kubernetes deployment
+- CI/CD pipeline
+- Redis caching
+- Advanced AI analytics
+- Email notification service
+
+---
+
+# Development Commands
+
+## Rebuild Containers
+
+```bash
+docker compose up --build
+```
+
+## Rebuild Without Cache
+
+```bash
+docker compose build --no-cache
+```
+
+## View API Logs Live
+
+```bash
+docker logs -f fluxion_api
+```
+
+## View Worker Logs Live
+
+```bash
+docker logs -f fluxion_worker
+```
+
+## Open PostgreSQL Shell
+
+```bash
+docker exec -it fluxion_postgres psql -U admin -d users_db
+```
+
+---
+
+# API Endpoints
+
+| Method | Endpoint          | Description      |
+| ------ | ----------------- | ---------------- |
+| GET    | /login            | Login page       |
+| POST   | /login            | Admin login      |
+| GET    | /logout           | Logout           |
+| GET    | /users            | List users       |
+| GET    | /users/create     | Create user page |
+| POST   | /users/create     | Create user      |
+| POST   | /users/edit/:id   | Update user      |
+| POST   | /users/delete/:id | Delete user      |
+| GET    | /logs             | View logs        |
+| GET    | /ai/test          | AI summary       |
+| GET    | /tests            | Test dashboard   |
+
+---
+
+# UI Dashboards
+
+| Dashboard      | URL                           |
+| -------------- | ----------------------------- |
+| Fluxion Admin  | http://localhost:8080         |
+| RabbitMQ UI    | http://localhost:15672        |
+| AI Summary     | http://localhost:8080/ai/test |
+| Test Dashboard | http://localhost:8080/tests   |
+
+---
