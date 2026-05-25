@@ -123,7 +123,7 @@ go test ./... -v
 
 # Project Structure
 
-````text
+```text
 .
 ├── cmd/
 │   ├── api/
@@ -153,18 +153,8 @@ go test ./... -v
 ├── go.sum
 ├── Makefile
 └── README.md
-```text
-.
-├── app/
-├── workers/
-├── configs/
-├── scripts/
-├── tests/
-├── docker-compose.yml
-├── Dockerfile
-├── requirements.txt
-└── README.md
-````
+
+```
 
 ---
 
