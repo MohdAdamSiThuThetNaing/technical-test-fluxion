@@ -1,40 +1,16 @@
 package logs
 
-import (
-	"context"
+type Service struct {
+	Repository *Repository
+}
 
-	"github.com/MohdAdamSiThuThetNaing/technical-test-fluxion/internal/db"
-)
+func NewService() *Service {
 
-type Service struct{}
+	return &Service{
+		Repository: NewRepository(),
+	}
+}
 
 func (s *Service) GetLogs() ([]Log, error) {
-
-	collection := db.MongoClient.
-		Database("fluxion_logs").
-		Collection("logs")
-
-	cursor, err := collection.Find(
-		context.Background(),
-		map[string]interface{}{},
-	)
-
-	if err != nil {
-		return nil, err
-	}
-
-	defer cursor.Close(context.Background())
-	var logs []Log
-
-	for cursor.Next(context.Background()) {
-
-		var logData Log
-		err := cursor.Decode(&logData)
-		if err != nil {
-			return nil, err
-		}
-		logs = append(logs, logData)
-	}
-
-	return logs, nil
+	return s.Repository.FindAll()
 }

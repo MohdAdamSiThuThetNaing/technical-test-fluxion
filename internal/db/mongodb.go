@@ -25,6 +25,4 @@ func ConnectMongo() {
 	}
 
 	MongoClient = client
-
-	log.Println("MongoDB connected")
 }

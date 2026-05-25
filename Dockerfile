@@ -1,13 +1,19 @@
-FROM golang:latest
+FROM --platform=linux/arm64 golang:latest
 
 WORKDIR /app
 
-COPY . .
+COPY go.mod go.sum ./
 
 RUN go mod tidy
 
-RUN go build -o main ./cmd/api
+COPY . .
+
+RUN CGO_ENABLED=0 GOOS=linux GOARCH=arm64 \
+    go build -o api ./cmd/api
+
+RUN CGO_ENABLED=0 GOOS=linux GOARCH=arm64 \
+    go build -o worker ./cmd/worker
 
 EXPOSE 8080
 
-CMD ["./main"]
+CMD ["./api"]

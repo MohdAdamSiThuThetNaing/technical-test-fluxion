@@ -3,7 +3,6 @@ package ai
 import (
 	"bytes"
 	"encoding/json"
-	"io"
 	"net/http"
 	"os"
 )
@@ -18,20 +17,35 @@ type OllamaResponse struct {
 	Response string `json:"response"`
 }
 
-func GenerateSummary(logs string) (string, error) {
+func GenerateSummary(logsText string) (string, error) {
 
-	requestBody := OllamaRequest{
-		Model: "phi3",
-		Prompt: "Summarize these logs:\n\n" + logs,
+	prompt := `
+You are a backend system log analyzer.
+
+ONLY summarize the provided application logs.
+
+DO NOT create fictional stories, games, characters, or assumptions.
+
+Focus only on:
+- user creation
+- user update
+- user deletion
+- timestamps
+- admin actions
+
+Logs:
+` + logsText
+
+	reqBody := OllamaRequest{
+		Model:  "phi3",
+		Prompt: prompt,
 		Stream: false,
 	}
 
-	jsonData, _ := json.Marshal(requestBody)
-
-	ollamaURL := os.Getenv("OLLAMA_URL")
+	jsonData, _ := json.Marshal(reqBody)
 
 	resp, err := http.Post(
-		ollamaURL+"/api/generate",
+		os.Getenv("OLLAMA_URL")+"/api/generate",
 		"application/json",
 		bytes.NewBuffer(jsonData),
 	)
@@ -41,12 +55,12 @@ func GenerateSummary(logs string) (string, error) {
 	}
 
 	defer resp.Body.Close()
-
-	body, _ := io.ReadAll(resp.Body)
-
 	var result OllamaResponse
+	err = json.NewDecoder(resp.Body).Decode(&result)
 
-	json.Unmarshal(body, &result)
+	if err != nil {
+		return "", err
+	}
 
 	return result.Response, nil
 }
