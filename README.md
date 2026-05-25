@@ -123,16 +123,48 @@ go test ./... -v
 
 # Project Structure
 
+````text
+.
+├── cmd/
+│   ├── api/
+│   │   └── main.go
+│   └── worker/
+│       └── main.go
+├── docs/
+├── internal/
+│   ├── ai/
+│   ├── auth/
+│   ├── db/
+│   ├── guard/
+│   ├── logs/
+│   ├── queue/
+│   └── users/
+├── templates/
+├── tests/
+│   ├── ai_test.go
+│   ├── queue_test.go
+│   └── user_service_test.go
+├── .env
+├── .env.example
+├── .gitignore
+├── docker-compose.yml
+├── Dockerfile
+├── go.mod
+├── go.sum
+├── Makefile
+└── README.md
 ```text
 .
-├── docker-compose.yml
-├── worker/
-├── mongodb/
-├── rabbitmq/
+├── app/
+├── workers/
+├── configs/
+├── scripts/
 ├── tests/
-├── logs/
+├── docker-compose.yml
+├── Dockerfile
+├── requirements.txt
 └── README.md
-```
+````
 
 ---
 
