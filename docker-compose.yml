@@ -1,37 +1,118 @@
-version: '3.9'
-
 services:
   postgres:
     image: postgres:16
+
+    container_name: fluxion_postgres
+
+    restart: always
+
     environment:
       POSTGRES_USER: admin
       POSTGRES_PASSWORD: password
       POSTGRES_DB: users_db
+
     ports:
       - "5432:5432"
-      mongodb:
+
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U admin -d users_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  mongodb:
     image: mongo:7
+
+    container_name: fluxion_mongodb
+
+    restart: always
+
     ports:
       - "27017:27017"
 
   rabbitmq:
     image: rabbitmq:3-management
+
+    container_name: fluxion_rabbitmq
+
+    restart: always
+
     ports:
       - "5672:5672"
       - "15672:15672"
 
+  ollama:
+    image: ollama/ollama
+
+    container_name: fluxion_ollama
+
+    restart: always
+
+    ports:
+      - "11434:11434"
+
+    volumes:
+      - ollama_data:/root/.ollama
+
+    entrypoint:
+      - /bin/sh
+      - -c
+      - |
+        ollama serve &
+        sleep 15
+        ollama pull phi3
+        wait
+
   app:
     build: .
+
+    container_name: fluxion_app
+
+    restart: always
+
     depends_on:
-      - postgres
-      - mongodb
-      - rabbitmq
+      postgres:
+        condition: service_healthy
+
+      mongodb:
+        condition: service_started
+
+      rabbitmq:
+        condition: service_started
+
+      ollama:
+        condition: service_started
+
     ports:
       - "8080:8080"
 
+    env_file:
+      - .env
+
   worker:
     build: .
+
+    container_name: fluxion_worker
+
+    restart: always
+
     command: ["go", "run", "cmd/worker/main.go"]
+
     depends_on:
-      - rabbitmq
-      - mongodb
+      postgres:
+        condition: service_healthy
+
+      mongodb:
+        condition: service_started
+
+      rabbitmq:
+        condition: service_started
+
+      ollama:
+        condition: service_started
+
+    env_file:
+      - .env
+
+volumes:
+  ollama_data:
