@@ -13,7 +13,7 @@ func AuthMiddleware() gin.HandlerFunc {
 
 		session := sessions.Default(c)
 		loggedIn := session.Get(
-			"admin_logged_in",
+			"authenticated",
 		)
 
 		if loggedIn != true {

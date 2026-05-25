@@ -23,6 +23,7 @@ func main() {
 	db.ConnectMongo()
 
 	migration.Run()
+	migration.SeedAdmin()
 
 	r := gin.Default()
 
