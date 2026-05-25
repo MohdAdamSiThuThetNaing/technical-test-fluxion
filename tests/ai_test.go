@@ -1,19 +1,25 @@
 package tests
 
 import (
+	"os"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
+
+	"github.com/MohdAdamSiThuThetNaing/technical-test-fluxion/internal/ai"
 )
 
-func TestAISummary(t *testing.T) {
+func TestGenerateSummary(t *testing.T) {
 
-	summary := `
-	User Adam created account.
-	User John updated profile.
-	`
+	os.Setenv(
+		"OLLAMA_URL",
+		"http://localhost:11434",
+	)
 
-	assert.NotEmpty(t, summary)
+	result, err := ai.GenerateSummary(
+		"USER_CREATED user@gmail.com",
+	)
 
-	assert.Contains(t, summary, "User")
+	assert.Nil(t, err)
+	assert.NotEmpty(t, result)
 }

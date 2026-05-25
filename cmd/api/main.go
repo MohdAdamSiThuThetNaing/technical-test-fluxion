@@ -12,6 +12,7 @@ import (
 	"github.com/MohdAdamSiThuThetNaing/technical-test-fluxion/internal/logs"
 	"github.com/MohdAdamSiThuThetNaing/technical-test-fluxion/internal/migration"
 	"github.com/MohdAdamSiThuThetNaing/technical-test-fluxion/internal/users"
+	"github.com/MohdAdamSiThuThetNaing/technical-test-fluxion/tests"
 )
 
 func main() {
@@ -41,6 +42,7 @@ func main() {
 	users.RegisterRoutes(r)
 	logs.RegisterRoutes(r)
 	ai.RegisterRoutes(r)
+	tests.RegisterRoutes(r)
 
 	r.Run(":8080")
 }

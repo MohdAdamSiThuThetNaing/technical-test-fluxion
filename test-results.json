@@ -1,0 +1,54 @@
+{"Time":"2026-05-25T18:52:33.200563+07:00","Action":"start","Package":"github.com/MohdAdamSiThuThetNaing/technical-test-fluxion/cmd/api"}
+{"Time":"2026-05-25T18:52:33.200642+07:00","Action":"output","Package":"github.com/MohdAdamSiThuThetNaing/technical-test-fluxion/cmd/api","Output":"?   \tgithub.com/MohdAdamSiThuThetNaing/technical-test-fluxion/cmd/api\t[no test files]\n"}
+{"Time":"2026-05-25T18:52:33.200649+07:00","Action":"skip","Package":"github.com/MohdAdamSiThuThetNaing/technical-test-fluxion/cmd/api","Elapsed":0}
+{"Time":"2026-05-25T18:52:33.200659+07:00","Action":"start","Package":"github.com/MohdAdamSiThuThetNaing/technical-test-fluxion/cmd/worker"}
+{"Time":"2026-05-25T18:52:33.200675+07:00","Action":"output","Package":"github.com/MohdAdamSiThuThetNaing/technical-test-fluxion/cmd/worker","Output":"?   \tgithub.com/MohdAdamSiThuThetNaing/technical-test-fluxion/cmd/worker\t[no test files]\n"}
+{"Time":"2026-05-25T18:52:33.200685+07:00","Action":"start","Package":"github.com/MohdAdamSiThuThetNaing/technical-test-fluxion/internal/ai"}
+{"Time":"2026-05-25T18:52:33.200683+07:00","Action":"skip","Package":"github.com/MohdAdamSiThuThetNaing/technical-test-fluxion/cmd/worker","Elapsed":0}
+{"Time":"2026-05-25T18:52:33.200696+07:00","Action":"start","Package":"github.com/MohdAdamSiThuThetNaing/technical-test-fluxion/internal/auth"}
+{"Time":"2026-05-25T18:52:33.200701+07:00","Action":"output","Package":"github.com/MohdAdamSiThuThetNaing/technical-test-fluxion/internal/auth","Output":"?   \tgithub.com/MohdAdamSiThuThetNaing/technical-test-fluxion/internal/auth\t[no test files]\n"}
+{"Time":"2026-05-25T18:52:33.200703+07:00","Action":"skip","Package":"github.com/MohdAdamSiThuThetNaing/technical-test-fluxion/internal/auth","Elapsed":0}
+{"Time":"2026-05-25T18:52:33.200719+07:00","Action":"start","Package":"github.com/MohdAdamSiThuThetNaing/technical-test-fluxion/internal/dashboard"}
+{"Time":"2026-05-25T18:52:33.20074+07:00","Action":"output","Package":"github.com/MohdAdamSiThuThetNaing/technical-test-fluxion/internal/dashboard","Output":"?   \tgithub.com/MohdAdamSiThuThetNaing/technical-test-fluxion/internal/dashboard\t[no test files]\n"}
+{"Time":"2026-05-25T18:52:33.200749+07:00","Action":"skip","Package":"github.com/MohdAdamSiThuThetNaing/technical-test-fluxion/internal/dashboard","Elapsed":0}
+{"Time":"2026-05-25T18:52:33.200692+07:00","Action":"output","Package":"github.com/MohdAdamSiThuThetNaing/technical-test-fluxion/internal/ai","Output":"?   \tgithub.com/MohdAdamSiThuThetNaing/technical-test-fluxion/internal/ai\t[no test files]\n"}
+{"Time":"2026-05-25T18:52:33.200756+07:00","Action":"skip","Package":"github.com/MohdAdamSiThuThetNaing/technical-test-fluxion/internal/ai","Elapsed":0}
+{"Time":"2026-05-25T18:52:33.200757+07:00","Action":"start","Package":"github.com/MohdAdamSiThuThetNaing/technical-test-fluxion/internal/db"}
+{"Time":"2026-05-25T18:52:33.200773+07:00","Action":"output","Package":"github.com/MohdAdamSiThuThetNaing/technical-test-fluxion/internal/db","Output":"?   \tgithub.com/MohdAdamSiThuThetNaing/technical-test-fluxion/internal/db\t[no test files]\n"}
+{"Time":"2026-05-25T18:52:33.200781+07:00","Action":"skip","Package":"github.com/MohdAdamSiThuThetNaing/technical-test-fluxion/internal/db","Elapsed":0}
+{"Time":"2026-05-25T18:52:33.200791+07:00","Action":"start","Package":"github.com/MohdAdamSiThuThetNaing/technical-test-fluxion/internal/guard"}
+{"Time":"2026-05-25T18:52:33.200805+07:00","Action":"output","Package":"github.com/MohdAdamSiThuThetNaing/technical-test-fluxion/internal/guard","Output":"?   \tgithub.com/MohdAdamSiThuThetNaing/technical-test-fluxion/internal/guard\t[no test files]\n"}
+{"Time":"2026-05-25T18:52:33.200814+07:00","Action":"skip","Package":"github.com/MohdAdamSiThuThetNaing/technical-test-fluxion/internal/guard","Elapsed":0}
+{"Time":"2026-05-25T18:52:33.200828+07:00","Action":"start","Package":"github.com/MohdAdamSiThuThetNaing/technical-test-fluxion/internal/logs"}
+{"Time":"2026-05-25T18:52:33.200837+07:00","Action":"output","Package":"github.com/MohdAdamSiThuThetNaing/technical-test-fluxion/internal/logs","Output":"?   \tgithub.com/MohdAdamSiThuThetNaing/technical-test-fluxion/internal/logs\t[no test files]\n"}
+{"Time":"2026-05-25T18:52:33.200849+07:00","Action":"start","Package":"github.com/MohdAdamSiThuThetNaing/technical-test-fluxion/internal/migration"}
+{"Time":"2026-05-25T18:52:33.200852+07:00","Action":"skip","Package":"github.com/MohdAdamSiThuThetNaing/technical-test-fluxion/internal/logs","Elapsed":0}
+{"Time":"2026-05-25T18:52:33.200863+07:00","Action":"output","Package":"github.com/MohdAdamSiThuThetNaing/technical-test-fluxion/internal/migration","Output":"?   \tgithub.com/MohdAdamSiThuThetNaing/technical-test-fluxion/internal/migration\t[no test files]\n"}
+{"Time":"2026-05-25T18:52:33.20087+07:00","Action":"skip","Package":"github.com/MohdAdamSiThuThetNaing/technical-test-fluxion/internal/migration","Elapsed":0}
+{"Time":"2026-05-25T18:52:33.200874+07:00","Action":"start","Package":"github.com/MohdAdamSiThuThetNaing/technical-test-fluxion/internal/queue"}
+{"Time":"2026-05-25T18:52:33.200881+07:00","Action":"output","Package":"github.com/MohdAdamSiThuThetNaing/technical-test-fluxion/internal/queue","Output":"?   \tgithub.com/MohdAdamSiThuThetNaing/technical-test-fluxion/internal/queue\t[no test files]\n"}
+{"Time":"2026-05-25T18:52:33.200889+07:00","Action":"skip","Package":"github.com/MohdAdamSiThuThetNaing/technical-test-fluxion/internal/queue","Elapsed":0}
+{"Time":"2026-05-25T18:52:33.200895+07:00","Action":"start","Package":"github.com/MohdAdamSiThuThetNaing/technical-test-fluxion/internal/users"}
+{"Time":"2026-05-25T18:52:33.200902+07:00","Action":"output","Package":"github.com/MohdAdamSiThuThetNaing/technical-test-fluxion/internal/users","Output":"?   \tgithub.com/MohdAdamSiThuThetNaing/technical-test-fluxion/internal/users\t[no test files]\n"}
+{"Time":"2026-05-25T18:52:33.200904+07:00","Action":"skip","Package":"github.com/MohdAdamSiThuThetNaing/technical-test-fluxion/internal/users","Elapsed":0}
+{"Time":"2026-05-25T18:52:34.220152+07:00","Action":"start","Package":"github.com/MohdAdamSiThuThetNaing/technical-test-fluxion/tests"}
+{"Time":"2026-05-25T18:52:34.778525+07:00","Action":"run","Package":"github.com/MohdAdamSiThuThetNaing/technical-test-fluxion/tests","Test":"TestGenerateSummary"}
+{"Time":"2026-05-25T18:52:34.778857+07:00","Action":"output","Package":"github.com/MohdAdamSiThuThetNaing/technical-test-fluxion/tests","Test":"TestGenerateSummary","Output":"=== RUN   TestGenerateSummary\n"}
+{"Time":"2026-05-25T18:52:49.793907+07:00","Action":"output","Package":"github.com/MohdAdamSiThuThetNaing/technical-test-fluxion/tests","Test":"TestGenerateSummary","Output":"--- PASS: TestGenerateSummary (15.02s)\n"}
+{"Time":"2026-05-25T18:52:49.794435+07:00","Action":"pass","Package":"github.com/MohdAdamSiThuThetNaing/technical-test-fluxion/tests","Test":"TestGenerateSummary","Elapsed":15.02}
+{"Time":"2026-05-25T18:52:49.795445+07:00","Action":"run","Package":"github.com/MohdAdamSiThuThetNaing/technical-test-fluxion/tests","Test":"TestHealthRoute"}
+{"Time":"2026-05-25T18:52:49.795491+07:00","Action":"output","Package":"github.com/MohdAdamSiThuThetNaing/technical-test-fluxion/tests","Test":"TestHealthRoute","Output":"=== RUN   TestHealthRoute\n"}
+{"Time":"2026-05-25T18:52:49.795575+07:00","Action":"output","Package":"github.com/MohdAdamSiThuThetNaing/technical-test-fluxion/tests","Test":"TestHealthRoute","Output":"[GIN] 2026/05/25 - 18:52:49 | 200 |  188.5µs |                 | GET      \"/health\"\n"}
+{"Time":"2026-05-25T18:52:49.79562+07:00","Action":"output","Package":"github.com/MohdAdamSiThuThetNaing/technical-test-fluxion/tests","Test":"TestHealthRoute","Output":"--- PASS: TestHealthRoute (0.00s)\n"}
+{"Time":"2026-05-25T18:52:49.795641+07:00","Action":"pass","Package":"github.com/MohdAdamSiThuThetNaing/technical-test-fluxion/tests","Test":"TestHealthRoute","Elapsed":0}
+{"Time":"2026-05-25T18:52:49.795689+07:00","Action":"run","Package":"github.com/MohdAdamSiThuThetNaing/technical-test-fluxion/tests","Test":"TestQueuePayload"}
+{"Time":"2026-05-25T18:52:49.795709+07:00","Action":"output","Package":"github.com/MohdAdamSiThuThetNaing/technical-test-fluxion/tests","Test":"TestQueuePayload","Output":"=== RUN   TestQueuePayload\n"}
+{"Time":"2026-05-25T18:52:49.795749+07:00","Action":"output","Package":"github.com/MohdAdamSiThuThetNaing/technical-test-fluxion/tests","Test":"TestQueuePayload","Output":"--- PASS: TestQueuePayload (0.00s)\n"}
+{"Time":"2026-05-25T18:52:49.795765+07:00","Action":"pass","Package":"github.com/MohdAdamSiThuThetNaing/technical-test-fluxion/tests","Test":"TestQueuePayload","Elapsed":0}
+{"Time":"2026-05-25T18:52:49.795779+07:00","Action":"run","Package":"github.com/MohdAdamSiThuThetNaing/technical-test-fluxion/tests","Test":"TestUserModel"}
+{"Time":"2026-05-25T18:52:49.795845+07:00","Action":"output","Package":"github.com/MohdAdamSiThuThetNaing/technical-test-fluxion/tests","Test":"TestUserModel","Output":"=== RUN   TestUserModel\n"}
+{"Time":"2026-05-25T18:52:49.795862+07:00","Action":"output","Package":"github.com/MohdAdamSiThuThetNaing/technical-test-fluxion/tests","Test":"TestUserModel","Output":"--- PASS: TestUserModel (0.00s)\n"}
+{"Time":"2026-05-25T18:52:49.795877+07:00","Action":"pass","Package":"github.com/MohdAdamSiThuThetNaing/technical-test-fluxion/tests","Test":"TestUserModel","Elapsed":0}
+{"Time":"2026-05-25T18:52:49.795891+07:00","Action":"output","Package":"github.com/MohdAdamSiThuThetNaing/technical-test-fluxion/tests","Output":"PASS\n"}
+{"Time":"2026-05-25T18:52:49.797947+07:00","Action":"output","Package":"github.com/MohdAdamSiThuThetNaing/technical-test-fluxion/tests","Output":"ok  \tgithub.com/MohdAdamSiThuThetNaing/technical-test-fluxion/tests\t15.577s\n"}
+{"Time":"2026-05-25T18:52:49.800648+07:00","Action":"pass","Package":"github.com/MohdAdamSiThuThetNaing/technical-test-fluxion/tests","Elapsed":15.58}

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Test Dashboard</title>
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/@tabler/core@latest/dist/css/tabler.min.css"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body>
+    <div class="container mt-5">
+      <h1 class="mb-4">🧪 Unit Test Dashboard</h1>
+
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>Test Name</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          {{ range .Results }}
+
+          <tr>
+            <td>{{ .Test }}</td>
+
+            <td>
+              {{ if eq .Action "pass" }}
+              <span class="badge bg-success"> PASS </span>
+              {{ else }}
+              <span class="badge bg-danger"> FAIL </span>
+              {{ end }}
+            </td>
+          </tr>
+
+          {{ end }}
+        </tbody>
+      </table>
+    </div>
+  </body>
+</html>

@@ -3,12 +3,19 @@ package tests
 import (
 	"testing"
 
+	"github.com/gin-gonic/gin"
 	"github.com/stretchr/testify/assert"
 )
 
-func TestQueuePublish(t *testing.T) {
+func TestQueuePayload(t *testing.T) {
 
-	result := true
+	payload := gin.H{
+		"event": "USER_CREATED",
+	}
 
-	assert.True(t, result)
+	assert.Equal(
+		t,
+		"USER_CREATED",
+		payload["event"],
+	)
 }

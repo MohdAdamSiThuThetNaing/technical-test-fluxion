@@ -8,24 +8,22 @@ import (
 	"github.com/MohdAdamSiThuThetNaing/technical-test-fluxion/internal/users"
 )
 
-func TestCreateUserDTO(t *testing.T) {
+func TestUserModel(t *testing.T) {
 
-	input := users.CreateUserDTO{
-		Name:     "Adam",
-		Email:    "adam@example.com",
-		Password: "password123",
+	user := users.User{
+		Name:  "Adam",
+		Email: "adam@gmail.com",
 	}
-
-	assert.Equal(t, "Adam", input.Name)
 
 	assert.Equal(
 		t,
-		"adam@example.com",
-		input.Email,
+		"Adam",
+		user.Name,
 	)
 
-	assert.NotEmpty(
+	assert.Equal(
 		t,
-		input.Password,
+		"adam@gmail.com",
+		user.Email,
 	)
 }

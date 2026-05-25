@@ -3,8 +3,10 @@ package ai
 import (
 	"bytes"
 	"encoding/json"
+	"fmt"
 	"net/http"
 	"os"
+	"strings"
 )
 
 type OllamaRequest struct {
@@ -20,20 +22,30 @@ type OllamaResponse struct {
 func GenerateSummary(logsText string) (string, error) {
 
 	prompt := `
-You are a backend system log analyzer.
+You are a backend log analyzer.
 
-ONLY summarize the provided application logs.
+STRICT RULES:
+- ONLY analyze provided logs
+- DO NOT invent timestamps
+- DO NOT invent users
+- DO NOT invent events
+- DO NOT hallucinate
+- Return concise factual summaries only
 
-DO NOT create fictional stories, games, characters, or assumptions.
+Return format:
 
-Focus only on:
-- user creation
-- user update
-- user deletion
-- timestamps
-- admin actions
+{
+  "total_user_created": number,
+  "total_user_updated": number,
+  "total_user_deleted": number,
+  "latest_admin_action": "EVENT_NAME"
+}
 
-Logs:
+If information is missing:
+- use 0
+- use "NOT_FOUND"
+
+Application Logs:
 ` + logsText
 
 	reqBody := OllamaRequest{
@@ -42,7 +54,11 @@ Logs:
 		Stream: false,
 	}
 
-	jsonData, _ := json.Marshal(reqBody)
+	jsonData, err := json.Marshal(reqBody)
+
+	if err != nil {
+		return "", err
+	}
 
 	resp, err := http.Post(
 		os.Getenv("OLLAMA_URL")+"/api/generate",
@@ -55,6 +71,15 @@ Logs:
 	}
 
 	defer resp.Body.Close()
+
+	if resp.StatusCode != http.StatusOK {
+
+		return "", fmt.Errorf(
+			"ollama returned status: %d",
+			resp.StatusCode,
+		)
+	}
+
 	var result OllamaResponse
 	err = json.NewDecoder(resp.Body).Decode(&result)
 
@@ -62,5 +87,5 @@ Logs:
 		return "", err
 	}
 
-	return result.Response, nil
+	return strings.TrimSpace(result.Response), nil
 }
