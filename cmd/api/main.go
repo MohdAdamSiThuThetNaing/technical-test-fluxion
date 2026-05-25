@@ -180,7 +180,21 @@ func main() {
 		name := c.PostForm("name")
 		email := c.PostForm("email")
 		password := c.PostForm("password")
-		hashedPassword, _ := bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)
+
+		var existingUser users.User
+
+		if err := db.DB.Where("email = ?", email).First(&existingUser).Error; err == nil {
+
+			c.HTML(http.StatusBadRequest, "create-user.html", gin.H{
+				"Error": "Email already exists",
+			})
+			return
+		}
+
+		hashedPassword, _ := bcrypt.GenerateFromPassword(
+			[]byte(password),
+			bcrypt.DefaultCost,
+		)
 
 		user := users.User{
 			ID:       uuid.New(),
@@ -188,6 +202,7 @@ func main() {
 			Email:    email,
 			Password: string(hashedPassword),
 		}
+
 		db.DB.Create(&user)
 
 		queue.Publish(gin.H{
@@ -198,22 +213,8 @@ func main() {
 			"action_by":    "admin",
 			"created_at":   time.Now(),
 		})
+
 		c.Redirect(http.StatusFound, "/users")
-	})
-
-	r.GET("/users/edit/:id", guard.AuthMiddleware(), func(c *gin.Context) {
-
-		id := c.Param("id")
-		var user users.User
-		result := db.DB.Where("id = ?", id).First(&user)
-		if result.Error != nil {
-			c.String(http.StatusNotFound, "User not found")
-			return
-		}
-
-		c.HTML(http.StatusOK, "edit-user.html", gin.H{
-			"User": user,
-		})
 	})
 
 	r.POST("/users/edit/:id", guard.AuthMiddleware(), func(c *gin.Context) {
@@ -221,14 +222,33 @@ func main() {
 		id := c.Param("id")
 
 		var user users.User
+
 		result := db.DB.Where("id = ?", id).First(&user)
+
 		if result.Error != nil {
 			c.String(http.StatusNotFound, "User not found")
 			return
 		}
 
-		user.Name = c.PostForm("name")
-		user.Email = c.PostForm("email")
+		name := c.PostForm("name")
+		email := c.PostForm("email")
+
+		var existingUser users.User
+
+		if err := db.DB.
+			Where("email = ? AND id != ?", email, id).
+			First(&existingUser).Error; err == nil {
+
+			c.HTML(http.StatusBadRequest, "edit-user.html", gin.H{
+				"User":  user,
+				"Error": "Email already exists",
+			})
+			return
+		}
+
+		user.Name = name
+		user.Email = email
+
 		db.DB.Save(&user)
 
 		queue.Publish(gin.H{

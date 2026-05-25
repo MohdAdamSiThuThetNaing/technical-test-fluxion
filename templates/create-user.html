@@ -61,6 +61,10 @@
                   </p>
                 </div>
 
+                {{ if .Error }}
+                <div class="alert alert-danger mb-4">{{ .Error }}</div>
+                {{ end }}
+
                 <form method="POST" action="/users/create">
                   <div class="mb-4">
                     <label class="form-label"> Full Name </label>
@@ -100,11 +104,11 @@
 
                   <div class="d-flex gap-3">
                     <button type="submit" class="btn btn-primary btn-lg">
-                      ✅ Create User
+                      Create User
                     </button>
 
                     <a href="/users" class="btn btn-secondary btn-lg">
-                      👥 Back to Users
+                      Back to Users
                     </a>
                   </div>
                 </form>

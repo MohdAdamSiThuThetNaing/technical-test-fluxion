@@ -59,6 +59,10 @@
                   <p class="text-secondary">Update user account information</p>
                 </div>
 
+                {{ if .Error }}
+                <div class="alert alert-danger mb-4">{{ .Error }}</div>
+                {{ end }}
+
                 <form method="POST" action="/users/edit/{{ .User.ID }}">
                   <div class="mb-4">
                     <label class="form-label"> Full Name </label>
@@ -86,7 +90,7 @@
 
                   <div class="d-flex gap-3">
                     <button type="submit" class="btn btn-primary btn-lg">
-                      ✅ Update User
+                      Update User
                     </button>
 
                     <a href="/users" class="btn btn-secondary btn-lg">
