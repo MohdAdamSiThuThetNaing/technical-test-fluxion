@@ -200,6 +200,47 @@
                 <li>Admin authentication with session middleware</li>
               </ul>
             </div>
+
+            <div class="card mt-4">
+              <div class="card-header">
+                <h3 class="card-title">🧪 Unit Test Results</h3>
+              </div>
+
+              <div class="card-body">
+                <div class="table-responsive">
+                  <table class="table table-bordered table-striped">
+                    <thead>
+                      <tr>
+                        <th>Test Name</th>
+                        <th>Status</th>
+                      </tr>
+                    </thead>
+
+                    <tbody>
+                      {{ range .Results }}
+
+                      <tr>
+                        <td>{{ .Test }}</td>
+
+                        <td>
+                          {{ if eq .Action "pass" }}
+
+                          <span class="badge bg-success"> PASS </span>
+
+                          {{ else }}
+
+                          <span class="badge bg-danger"> FAIL </span>
+
+                          {{ end }}
+                        </td>
+                      </tr>
+
+                      {{ end }}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
