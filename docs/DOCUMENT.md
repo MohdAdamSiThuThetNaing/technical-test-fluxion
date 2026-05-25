@@ -242,6 +242,14 @@ POST /ai/user-suggestion
 
 Example Request:
 
+```bash
+curl -X POST http://localhost:8080/ai/user-suggestion \
+-H "Content-Type: application/json" \
+-d '{
+  "prompt":"Create a senior backend engineer user"
+}'
+```
+
 ```json
 {
   "prompt": "Create a senior backend engineer user"
