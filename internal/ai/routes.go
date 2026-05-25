@@ -17,4 +17,9 @@ func RegisterRoutes(r *gin.Engine) {
 		"/test",
 		TestAI,
 	)
+	
+	aiRoutes.POST(
+		"/user-suggestion",
+		SuggestUser,
+	)
 }
