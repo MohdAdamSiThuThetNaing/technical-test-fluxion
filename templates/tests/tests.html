@@ -1,44 +1,71 @@
 {{ template "header" . }}
 
-<div class="container-xl mt-5">
-  <div class="card page-card shadow-sm">
-    <div class="card-body p-5">
-      <div class="d-flex justify-content-between align-items-center mb-4">
+<div class="min-h-screen bg-slate-100 py-10">
+  <div class="max-w-7xl mx-auto px-4">
+    <div class="bg-white rounded-3xl shadow-sm overflow-hidden">
+      <div
+        class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6 p-8 border-b border-slate-200"
+      >
         <div>
-          <h1 class="mb-1">🧪 Unit Test Dashboard</h1>
+          <h1 class="text-4xl font-extrabold text-slate-900 mb-2">
+            🧪 Unit Test Dashboard
+          </h1>
 
-          <p class="text-secondary mb-0">
+          <p class="text-slate-500 text-lg">
             Automated Go unit and integration test results
           </p>
         </div>
 
-        <a href="/" class="btn btn-primary"> 🏠 Back Dashboard </a>
+        <a
+          href="/"
+          class="inline-flex items-center justify-center px-6 py-3 rounded-2xl bg-blue-600 hover:bg-blue-700 transition text-white font-semibold shadow-sm"
+        >
+          🏠 Back Dashboard
+        </a>
       </div>
 
-      <div class="table-responsive">
-        <table class="table table-bordered table-striped">
-          <thead>
+      <div class="overflow-x-auto">
+        <table class="w-full">
+          <thead class="bg-slate-100 border-b border-slate-200">
             <tr>
-              <th>Test Name</th>
+              <th
+                class="text-left px-6 py-5 text-sm font-bold tracking-wide text-slate-700 uppercase"
+              >
+                Test Name
+              </th>
 
-              <th>Status</th>
+              <th
+                class="text-left px-6 py-5 text-sm font-bold tracking-wide text-slate-700 uppercase w-48"
+              >
+                Status
+              </th>
             </tr>
           </thead>
 
-          <tbody>
+          <tbody class="divide-y divide-slate-100 bg-white">
             {{ range .Results }}
 
-            <tr>
-              <td>{{ .Test }}</td>
+            <tr class="hover:bg-slate-50 transition">
+              <td class="px-6 py-5 font-semibold text-slate-800">
+                {{ .Test }}
+              </td>
 
-              <td>
+              <td class="px-6 py-5">
                 {{ if eq .Action "pass" }}
 
-                <span class="badge bg-success"> PASS </span>
+                <span
+                  class="inline-flex items-center px-4 py-2 rounded-full bg-green-100 text-green-700 text-sm font-bold tracking-wide"
+                >
+                  PASS
+                </span>
 
                 {{ else }}
 
-                <span class="badge bg-danger"> FAIL </span>
+                <span
+                  class="inline-flex items-center px-4 py-2 rounded-full bg-red-100 text-red-700 text-sm font-bold tracking-wide"
+                >
+                  FAIL
+                </span>
 
                 {{ end }}
               </td>

@@ -1,438 +1,363 @@
 {{ template "header" . }}
 
-<style>
-  body {
-    background: #f5f7fb;
-  }
+<div class="min-h-screen bg-slate-100">
+  <div class="max-w-7xl mx-auto px-4 py-8">
+    <div
+      class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-slate-900 to-slate-800 p-8 lg:p-12 shadow-xl mb-8"
+    >
+      <div
+        class="absolute -top-24 -right-24 w-80 h-80 bg-white/5 rounded-full"
+      ></div>
 
-  .dashboard-hero {
-    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-    border-radius: 24px;
-    overflow: hidden;
-    position: relative;
-    border: 1px solid rgba(255, 255, 255, 0.06);
-  }
+      <div
+        class="absolute -bottom-20 -left-20 w-60 h-60 bg-white/5 rounded-full"
+      ></div>
 
-  .dashboard-hero::before {
-    content: "";
-    position: absolute;
-    right: -120px;
-    top: -120px;
-    width: 320px;
-    height: 320px;
-    background: rgba(255, 255, 255, 0.04);
-    border-radius: 50%;
-  }
-
-  .dashboard-hero::after {
-    content: "";
-    position: absolute;
-    left: -80px;
-    bottom: -80px;
-    width: 220px;
-    height: 220px;
-    background: rgba(255, 255, 255, 0.03);
-    border-radius: 50%;
-  }
-
-  .hero-title {
-    font-size: 42px;
-    font-weight: 800;
-    line-height: 1.2;
-    color: white;
-  }
-
-  .hero-subtitle {
-    color: rgba(255, 255, 255, 0.75);
-    font-size: 16px;
-    margin-top: 14px;
-    max-width: 700px;
-  }
-
-  .hero-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 8px 14px;
-    background: rgba(255, 255, 255, 0.08);
-    border-radius: 999px;
-    color: white;
-    font-size: 13px;
-    font-weight: 600;
-    margin-bottom: 18px;
-    border: 1px solid rgba(255, 255, 255, 0.08);
-  }
-
-  .metric-card {
-    border: 0;
-    border-radius: 22px;
-    background: white;
-    box-shadow: 0 6px 24px rgba(15, 23, 42, 0.05);
-    transition: all 0.25s ease;
-    overflow: hidden;
-  }
-
-  .metric-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 12px 40px rgba(15, 23, 42, 0.08);
-  }
-
-  .metric-icon {
-    width: 54px;
-    height: 54px;
-    border-radius: 16px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 24px;
-  }
-
-  .metric-value {
-    font-size: 32px;
-    font-weight: 800;
-    margin-top: 14px;
-    color: #111827;
-  }
-
-  .metric-label {
-    color: #6b7280;
-    font-size: 14px;
-    font-weight: 600;
-  }
-
-  .section-card {
-    border: 0;
-    border-radius: 22px;
-    background: white;
-    box-shadow: 0 6px 24px rgba(15, 23, 42, 0.05);
-  }
-
-  .section-title {
-    font-size: 20px;
-    font-weight: 700;
-    color: #111827;
-  }
-
-  .action-btn {
-    border-radius: 14px;
-    font-weight: 600;
-    padding: 14px 20px;
-    min-width: 220px;
-  }
-
-  .workflow-item {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    padding: 16px;
-    border-radius: 16px;
-    background: #f8fafc;
-    margin-bottom: 14px;
-  }
-
-  .workflow-icon {
-    width: 46px;
-    height: 46px;
-    border-radius: 14px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 20px;
-    background: #e0e7ff;
-  }
-
-  .test-table thead th {
-    background: #f8fafc;
-    border-bottom: 1px solid #e5e7eb;
-    font-weight: 700;
-    color: #374151;
-  }
-
-  .test-table td {
-    vertical-align: middle;
-  }
-
-  .status-badge {
-    border-radius: 999px;
-    padding: 8px 14px;
-    font-size: 12px;
-    font-weight: 700;
-    letter-spacing: 0.4px;
-  }
-</style>
-
-<div class="page-wrapper">
-  <div class="page-body">
-    <div class="container-xl">
-      <div class="dashboard-hero p-5 mb-5">
-        <div class="row align-items-center">
-          <div class="col-lg-8">
-            <div class="hero-badge">⚡ AI-Driven Backend Architecture</div>
-
-            <h1 class="hero-title">Fluxion Admin Dashboard</h1>
-
-            <p class="hero-subtitle">
-              Fluxion Assessment powered by Golang, PostgreSQL, MongoDB,
-              RabbitMQ, and Ollama AI workflows.
-            </p>
-
-            <div class="d-flex flex-wrap gap-3 mt-4">
-              <a href="/users" class="btn btn-light action-btn">
-                Manage Users
-              </a>
-
-              <a href="/users/create" class="btn btn-primary action-btn">
-                Create User
-              </a>
-            </div>
+      <div
+        class="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-8 items-center"
+      >
+        <div>
+          <div
+            class="inline-flex items-center gap-2 bg-white/10 border border-white/10 rounded-full px-4 py-2 text-sm font-semibold text-white mb-5"
+          >
+            ⚡ AI-Driven Backend Architecture
           </div>
 
-          <div class="col-lg-4 text-center mt-4 mt-lg-0">
-            <img
-              src="https://cdn-icons-png.flaticon.com/512/4712/4712109.png"
-              width="220"
-            />
+          <h1
+            class="text-4xl lg:text-5xl font-extrabold tracking-tight text-white leading-tight"
+          >
+            Fluxion Admin Dashboard
+          </h1>
+
+          <p class="mt-5 text-slate-300 text-lg max-w-2xl">
+            Fluxion Assessment powered by Golang, PostgreSQL, MongoDB, RabbitMQ,
+            and Ollama AI workflows.
+          </p>
+
+          <div class="flex flex-wrap gap-4 mt-8">
+            <a
+              href="/users"
+              class="px-6 py-3 rounded-2xl bg-white text-slate-900 font-semibold shadow hover:bg-slate-100 transition"
+            >
+              Manage Users
+            </a>
+
+            <a
+              href="/users/create"
+              class="px-6 py-3 rounded-2xl bg-blue-600 text-white font-semibold shadow hover:bg-blue-700 transition"
+            >
+              Create User
+            </a>
+          </div>
+        </div>
+
+        <div class="flex justify-center lg:justify-end">
+          <img
+            src="https://cdn-icons-png.flaticon.com/512/4712/4712109.png"
+            class="w-52 lg:w-64"
+          />
+        </div>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6 mb-8">
+      <div
+        class="bg-white rounded-3xl shadow-sm hover:shadow-lg transition p-6"
+      >
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="text-sm font-semibold text-slate-500">Total Users</p>
+
+            <h2 class="mt-3 text-4xl font-extrabold text-slate-900">
+              {{ .TotalUsers }}
+            </h2>
+          </div>
+
+          <div
+            class="w-14 h-14 rounded-2xl bg-blue-100 flex items-center justify-center text-2xl"
+          >
+            👥
           </div>
         </div>
       </div>
 
-      <div class="row row-cards mb-4">
-        <div class="col-sm-6 col-xl-3">
-          <div class="card metric-card">
-            <div class="card-body">
-              <div class="d-flex align-items-center justify-content-between">
-                <div>
-                  <div class="metric-label">Total Users</div>
-                  <div class="metric-value">{{ .TotalUsers }}</div>
-                </div>
+      <div
+        class="bg-white rounded-3xl shadow-sm hover:shadow-lg transition p-6"
+      >
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="text-sm font-semibold text-slate-500">AI Service</p>
 
-                <div class="metric-icon bg-blue-lt text-blue">👥</div>
-              </div>
-            </div>
+            <h2 class="mt-3 text-3xl font-extrabold text-green-600">Active</h2>
           </div>
-        </div>
 
-        <div class="col-sm-6 col-xl-3">
-          <div class="card metric-card">
-            <div class="card-body">
-              <div class="d-flex align-items-center justify-content-between">
-                <div>
-                  <div class="metric-label">AI Service</div>
-                  <div class="metric-value text-green">Active</div>
-                </div>
-
-                <div class="metric-icon bg-green-lt text-green">🤖</div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-sm-6 col-xl-3">
-          <div class="card metric-card">
-            <div class="card-body">
-              <div class="d-flex align-items-center justify-content-between">
-                <div>
-                  <div class="metric-label">RabbitMQ Queue</div>
-                  <div class="metric-value text-blue">Running</div>
-                </div>
-
-                <div class="metric-icon bg-blue-lt text-blue">📨</div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-sm-6 col-xl-3">
-          <div class="card metric-card">
-            <div class="card-body">
-              <div class="d-flex align-items-center justify-content-between">
-                <div>
-                  <div class="metric-label">MongoDB Logs</div>
-                  <div class="metric-value text-yellow">Enabled</div>
-                </div>
-
-                <div class="metric-icon bg-yellow-lt text-yellow">📚</div>
-              </div>
-            </div>
+          <div
+            class="w-14 h-14 rounded-2xl bg-green-100 flex items-center justify-center text-2xl"
+          >
+            🤖
           </div>
         </div>
       </div>
 
-      <div class="row">
-        <div class="col-lg-8">
-          <div class="card section-card mb-4">
-            <div class="card-body p-4">
+      <div
+        class="bg-white rounded-3xl shadow-sm hover:shadow-lg transition p-6"
+      >
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="text-sm font-semibold text-slate-500">RabbitMQ Queue</p>
+
+            <h2 class="mt-3 text-3xl font-extrabold text-blue-600">Running</h2>
+          </div>
+
+          <div
+            class="w-14 h-14 rounded-2xl bg-blue-100 flex items-center justify-center text-2xl"
+          >
+            📨
+          </div>
+        </div>
+      </div>
+
+      <div
+        class="bg-white rounded-3xl shadow-sm hover:shadow-lg transition p-6"
+      >
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="text-sm font-semibold text-slate-500">MongoDB Logs</p>
+
+            <h2 class="mt-3 text-3xl font-extrabold text-amber-500">Enabled</h2>
+          </div>
+
+          <div
+            class="w-14 h-14 rounded-2xl bg-amber-100 flex items-center justify-center text-2xl"
+          >
+            📚
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8">
+      <div class="lg:col-span-2 space-y-8">
+        <div class="bg-white rounded-3xl shadow-sm p-8">
+          <div class="flex items-center justify-between mb-8">
+            <div>
+              <h2 class="text-2xl font-bold text-slate-900">
+                AI Workflow Architecture
+              </h2>
+
+              <p class="text-slate-500 mt-1">
+                Real-time backend workflow integrations
+              </p>
+            </div>
+
+            <a
+              href="/ai/test"
+              target="_blank"
+              class="px-5 py-3 rounded-2xl bg-amber-400 hover:bg-amber-500 transition font-semibold text-slate-900"
+            >
+              🤖 AI Insights
+            </a>
+          </div>
+
+          <div class="space-y-4">
+            <div class="flex items-center gap-4 p-5 bg-slate-50 rounded-2xl">
               <div
-                class="d-flex justify-content-between align-items-center mb-4"
+                class="w-12 h-12 rounded-2xl bg-blue-100 flex items-center justify-center text-xl"
               >
-                <div>
-                  <h2 class="section-title mb-1">AI Workflow Architecture</h2>
-
-                  <div class="text-secondary">
-                    Real-time backend workflow integrations
-                  </div>
-                </div>
-
-                <a href="/ai/test" target="_blank" class="btn btn-warning">
-                  🤖 AI Insights
-                </a>
+                ⚡
               </div>
 
-              <div class="workflow-item">
-                <div class="workflow-icon bg-blue-lt text-blue">⚡</div>
+              <div>
+                <h3 class="font-bold text-lg text-slate-900">
+                  Gin Framework API
+                </h3>
 
-                <div>
-                  <div class="fw-bold fs-5">Gin Framework API</div>
+                <p class="text-slate-500">
+                  High-performance Golang REST API services
+                </p>
+              </div>
+            </div>
 
-                  <div class="text-secondary">
-                    High-performance Golang REST API services
-                  </div>
-                </div>
+            <div class="flex items-center gap-4 p-5 bg-slate-50 rounded-2xl">
+              <div
+                class="w-12 h-12 rounded-2xl bg-indigo-100 flex items-center justify-center text-xl"
+              >
+                📨
               </div>
 
-              <div class="workflow-item">
-                <div class="workflow-icon bg-indigo-lt text-indigo">📨</div>
+              <div>
+                <h3 class="font-bold text-lg text-slate-900">
+                  RabbitMQ Queue System
+                </h3>
 
-                <div>
-                  <div class="fw-bold fs-5">RabbitMQ Queue System</div>
+                <p class="text-slate-500">
+                  Event-driven asynchronous background processing
+                </p>
+              </div>
+            </div>
 
-                  <div class="text-secondary">
-                    Event-driven asynchronous background processing
-                  </div>
-                </div>
+            <div class="flex items-center gap-4 p-5 bg-slate-50 rounded-2xl">
+              <div
+                class="w-12 h-12 rounded-2xl bg-green-100 flex items-center justify-center text-xl"
+              >
+                🤖
               </div>
 
-              <div class="workflow-item">
-                <div class="workflow-icon bg-green-lt text-green">🤖</div>
+              <div>
+                <h3 class="font-bold text-lg text-slate-900">
+                  Ollama AI Services
+                </h3>
 
-                <div>
-                  <div class="fw-bold fs-5">Ollama AI Services</div>
+                <p class="text-slate-500">
+                  Local LLM-powered CRUD summarization and insights
+                </p>
+              </div>
+            </div>
 
-                  <div class="text-secondary">
-                    Local LLM-powered CRUD summarization and insights
-                  </div>
-                </div>
+            <div class="flex items-center gap-4 p-5 bg-slate-50 rounded-2xl">
+              <div
+                class="w-12 h-12 rounded-2xl bg-amber-100 flex items-center justify-center text-xl"
+              >
+                🗄️
               </div>
 
-              <div class="workflow-item mb-0">
-                <div class="workflow-icon bg-yellow-lt text-yellow">🗄️</div>
+              <div>
+                <h3 class="font-bold text-lg text-slate-900">
+                  Hybrid Database Architecture
+                </h3>
 
-                <div>
-                  <div class="fw-bold fs-5">Hybrid Database Architecture</div>
-
-                  <div class="text-secondary">
-                    PostgreSQL relational storage with MongoDB logs
-                  </div>
-                </div>
+                <p class="text-slate-500">
+                  PostgreSQL relational storage with MongoDB logs
+                </p>
               </div>
             </div>
           </div>
         </div>
+      </div>
 
-        <div class="col-lg-4">
-          <div class="card section-card mb-4">
-            <div class="card-body p-4">
-              <h2 class="section-title mb-4">Quick Access</h2>
+      <div class="space-y-8">
+        <div class="bg-white rounded-3xl shadow-sm p-8">
+          <h2 class="text-2xl font-bold text-slate-900 mb-6">Quick Access</h2>
 
-              <div class="d-grid gap-3">
-                <a href="/logs" class="btn btn-dark btn-lg"> 📚 View Logs </a>
+          <div class="space-y-4">
+            <a
+              href="/logs"
+              class="block w-full text-center px-5 py-4 rounded-2xl bg-slate-900 text-white font-semibold hover:bg-slate-800 transition"
+            >
+              📚 View Logs
+            </a>
 
-                <a
-                  href="http://localhost:15672"
-                  target="_blank"
-                  class="btn btn-info btn-lg"
+            <a
+              href="http://localhost:15672"
+              target="_blank"
+              class="block w-full text-center px-5 py-4 rounded-2xl bg-sky-500 text-white font-semibold hover:bg-sky-600 transition"
+            >
+              📨 RabbitMQ Dashboard
+            </a>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-3xl shadow-sm p-8">
+          <h2 class="text-2xl font-bold text-slate-900 mb-6">System Status</h2>
+
+          <div class="space-y-4">
+            <div class="flex items-center justify-between">
+              <span class="font-semibold text-slate-700"> AI Service </span>
+
+              <span
+                class="px-3 py-1 rounded-full bg-green-100 text-green-700 text-sm font-bold"
+              >
+                ACTIVE
+              </span>
+            </div>
+
+            <div class="flex items-center justify-between">
+              <span class="font-semibold text-slate-700"> Queue Worker </span>
+
+              <span
+                class="px-3 py-1 rounded-full bg-blue-100 text-blue-700 text-sm font-bold"
+              >
+                RUNNING
+              </span>
+            </div>
+
+            <div class="flex items-center justify-between">
+              <span class="font-semibold text-slate-700"> MongoDB Logs </span>
+
+              <span
+                class="px-3 py-1 rounded-full bg-amber-100 text-amber-700 text-sm font-bold"
+              >
+                ENABLED
+              </span>
+            </div>
+
+            <div class="flex items-center justify-between">
+              <span class="font-semibold text-slate-700"> PostgreSQL </span>
+
+              <span
+                class="px-3 py-1 rounded-full bg-emerald-100 text-emerald-700 text-sm font-bold"
+              >
+                CONNECTED
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="bg-white rounded-3xl shadow-sm p-8">
+      <div class="flex items-center justify-between mb-6">
+        <h2 class="text-2xl font-bold text-slate-900">Unit Test Results</h2>
+
+        <span
+          class="px-4 py-2 rounded-full bg-green-100 text-green-700 text-sm font-bold"
+        >
+          TEST COVERAGE
+        </span>
+      </div>
+
+      <div class="overflow-x-auto">
+        <table class="w-full">
+          <thead>
+            <tr class="border-b border-slate-200">
+              <th class="text-left py-4 font-bold text-slate-700">Test Case</th>
+
+              <th class="text-left py-4 font-bold text-slate-700 w-44">
+                Status
+              </th>
+            </tr>
+          </thead>
+
+          <tbody>
+            {{ range .Results }}
+
+            <tr class="border-b border-slate-100">
+              <td class="py-5 font-semibold text-slate-800">{{ .Test }}</td>
+
+              <td class="py-5">
+                {{ if eq .Action "pass" }}
+
+                <span
+                  class="px-4 py-2 rounded-full bg-green-100 text-green-700 text-sm font-bold"
                 >
-                  📨 RabbitMQ Dashboard
-                </a>
-              </div>
-            </div>
-          </div>
+                  PASS
+                </span>
 
-          <div class="card section-card">
-            <div class="card-body p-4">
-              <h2 class="section-title mb-4">System Status</h2>
+                {{ else }}
 
-              <div
-                class="d-flex justify-content-between align-items-center mb-3"
-              >
-                <span class="fw-semibold"> AI Service </span>
-
-                <span class="badge bg-green text-white"> ACTIVE </span>
-              </div>
-
-              <div
-                class="d-flex justify-content-between align-items-center mb-3"
-              >
-                <span class="fw-semibold"> Queue Worker </span>
-
-                <span class="badge bg-blue text-white"> RUNNING </span>
-              </div>
-
-              <div
-                class="d-flex justify-content-between align-items-center mb-3"
-              >
-                <span class="fw-semibold"> MongoDB Logs </span>
-
-                <span class="badge bg-yellow text-white"> ENABLED </span>
-              </div>
-
-              <div class="d-flex justify-content-between align-items-center">
-                <span class="fw-semibold"> PostgreSQL </span>
-
-                <span class="badge bg-success text-white"> CONNECTED </span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="card section-card">
-        <div class="card-body p-4">
-          <div class="d-flex justify-content-between align-items-center mb-4">
-            <h2 class="section-title mb-0">Unit Test Results</h2>
-
-            <span class="badge bg-green-lt text-green status-badge">
-              TEST COVERAGE
-            </span>
-          </div>
-
-          <div class="table-responsive">
-            <table class="table test-table align-middle">
-              <thead>
-                <tr>
-                  <th>Test Case</th>
-                  <th width="180">Status</th>
-                </tr>
-              </thead>
-
-              <tbody>
-                {{ range .Results }}
-
-                <tr>
-                  <td class="fw-semibold">{{ .Test }}</td>
-
-                  <td>
-                    {{ if eq .Action "pass" }}
-
-                    <span class="badge bg-success text-white status-badge">
-                      PASS
-                    </span>
-
-                    {{ else }}
-
-                    <span class="badge bg-danger text-white status-badge">
-                      FAIL
-                    </span>
-
-                    {{ end }}
-                  </td>
-                </tr>
+                <span
+                  class="px-4 py-2 rounded-full bg-red-100 text-red-700 text-sm font-bold"
+                >
+                  FAIL
+                </span>
 
                 {{ end }}
-              </tbody>
-            </table>
-          </div>
-        </div>
+              </td>
+            </tr>
+
+            {{ end }}
+          </tbody>
+        </table>
       </div>
     </div>
   </div>

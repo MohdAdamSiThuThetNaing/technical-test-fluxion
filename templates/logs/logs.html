@@ -1,77 +1,105 @@
 {{ template "header" . }}
 
-<style>
-  .table thead th {
-    background: #f1f5f9;
-  }
-
-  .badge-event {
-    font-size: 14px;
-    padding: 8px 12px;
-    color: white !important;
-  }
-</style>
-
-<div class="container-xl mt-5">
-  <div class="card page-card shadow-sm">
-    <div class="card-body">
-      <div class="d-flex justify-content-between align-items-center mb-4">
+<div class="min-h-screen bg-slate-100 py-10">
+  <div class="max-w-7xl mx-auto px-4">
+    <div class="bg-white rounded-3xl shadow-sm overflow-hidden">
+      <div
+        class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6 p-8 border-b border-slate-200"
+      >
         <div>
-          <h1 class="mb-1">📚 User Activity Logs</h1>
+          <h1 class="text-4xl font-extrabold text-slate-900 mb-2">
+            📚 User Activity Logs
+          </h1>
 
-          <p class="text-secondary mb-0">
+          <p class="text-slate-500 text-lg">
             MongoDB event logs from CRUD activities
           </p>
         </div>
 
-        <a href="/ai/test" target="_blank" class="btn btn-warning">
+        <a
+          href="/ai/test"
+          target="_blank"
+          class="inline-flex items-center justify-center px-6 py-3 rounded-2xl bg-amber-400 hover:bg-amber-500 transition font-semibold text-slate-900 shadow-sm"
+        >
           🤖 Generate AI Summary
         </a>
       </div>
 
-      <div class="table-responsive">
-        <table class="table table-vcenter table-hover card-table">
-          <thead>
+      <div class="overflow-x-auto">
+        <table class="w-full">
+          <thead class="bg-slate-100 border-b border-slate-200">
             <tr>
-              <th>User ID</th>
+              <th
+                class="text-left px-6 py-5 text-sm font-bold tracking-wide text-slate-700 uppercase"
+              >
+                User ID
+              </th>
 
-              <th>Event</th>
+              <th
+                class="text-left px-6 py-5 text-sm font-bold tracking-wide text-slate-700 uppercase"
+              >
+                Event
+              </th>
 
-              <th>Created At</th>
+              <th
+                class="text-left px-6 py-5 text-sm font-bold tracking-wide text-slate-700 uppercase"
+              >
+                Created At
+              </th>
             </tr>
           </thead>
 
-          <tbody>
+          <tbody class="divide-y divide-slate-100 bg-white">
             {{ range .Logs }}
 
-            <tr>
-              <td>
-                <code> {{ .UserID }} </code>
+            <tr class="hover:bg-slate-50 transition">
+              <td class="px-6 py-5">
+                <code
+                  class="px-3 py-2 rounded-xl bg-slate-100 text-slate-700 text-sm font-semibold"
+                >
+                  {{ .UserID }}
+                </code>
               </td>
 
-              <td>
+              <td class="px-6 py-5">
                 {{ if eq .Event "USER_CREATED" }}
 
-                <span class="badge bg-green badge-event"> {{ .Event }} </span>
+                <span
+                  class="inline-flex items-center px-4 py-2 rounded-full bg-green-100 text-green-700 text-sm font-bold tracking-wide"
+                >
+                  {{ .Event }}
+                </span>
 
                 {{ else if eq .Event "USER_UPDATED" }}
 
-                <span class="badge bg-blue badge-event"> {{ .Event }} </span>
+                <span
+                  class="inline-flex items-center px-4 py-2 rounded-full bg-blue-100 text-blue-700 text-sm font-bold tracking-wide"
+                >
+                  {{ .Event }}
+                </span>
 
                 {{ else if eq .Event "USER_DELETED" }}
 
-                <span class="badge bg-red badge-event"> {{ .Event }} </span>
+                <span
+                  class="inline-flex items-center px-4 py-2 rounded-full bg-red-100 text-red-700 text-sm font-bold tracking-wide"
+                >
+                  {{ .Event }}
+                </span>
 
                 {{ else }}
 
-                <span class="badge bg-secondary badge-event">
+                <span
+                  class="inline-flex items-center px-4 py-2 rounded-full bg-slate-200 text-slate-700 text-sm font-bold tracking-wide"
+                >
                   {{ .Event }}
                 </span>
 
                 {{ end }}
               </td>
 
-              <td>{{ .CreatedAt.Format "02-01-2006 15:04:05" }}</td>
+              <td class="px-6 py-5 text-slate-600 font-medium">
+                {{ .CreatedAt.Format "02-01-2006 15:04:05" }}
+              </td>
             </tr>
 
             {{ end }}
