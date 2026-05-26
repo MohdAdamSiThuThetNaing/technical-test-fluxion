@@ -72,46 +72,46 @@ func TestAI(c *gin.Context) {
 
 func SuggestUser(c *gin.Context) {
 
-	type Request struct {
-		Prompt string `json:"prompt"`
-	}
-
-	var req Request
-	if err := c.ShouldBindJSON(&req); err != nil {
-		c.JSON(
+	input := c.PostForm("input")
+	if input == "" {
+		c.HTML(
 			http.StatusBadRequest,
+			"ai-suggestion.html",
 			gin.H{
-				"error": err.Error(),
+				"Error": "prompt is required",
 			},
 		)
 		return
 	}
 
-	if req.Prompt == "" {
-		c.JSON(
-			http.StatusBadRequest,
-			gin.H{
-				"error": "prompt is required",
-			},
-		)
-		return
-	}
-
-	result, err := GenerateUserSuggestion(req.Prompt)
+	result, err := GenerateUserSuggestion(input)
 	if err != nil {
-		c.JSON(
+		c.HTML(
 			http.StatusInternalServerError,
+			"ai-suggestion.html",
 			gin.H{
-				"error": err.Error(),
+				"Error": err.Error(),
+				"Input": input,
 			},
 		)
 		return
 	}
 
-	c.JSON(
+	c.HTML(
 		http.StatusOK,
+		"ai-suggestion.html",
 		gin.H{
-			"suggestion": result,
+			"Result": result,
+			"Input":  input,
 		},
+	)
+}
+
+func ShowUserSuggestion(c *gin.Context) {
+
+	c.HTML(
+		200,
+		"ai-suggestion.html",
+		nil,
 	)
 }

@@ -1,0 +1,239 @@
+{{ template "header" . }}
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const form = document.getElementById("aiForm");
+    const overlay = document.getElementById("loadingOverlay");
+    const progressBar = document.getElementById("progressBar");
+    const progressText = document.getElementById("progressText");
+    const generateButton = document.getElementById("generateButton");
+
+    if (!form || !overlay || !progressBar || !progressText || !generateButton) {
+      return;
+    }
+
+    const loadingSteps = [
+      "Initializing AI engine...",
+      "Preparing prompt...",
+      "Sending request to Ollama...",
+      "Generating professional profile...",
+      "Structuring JSON response...",
+      "Finalizing AI result...",
+    ];
+
+    let progressInterval = null;
+
+    const showOverlay = () => {
+      overlay.classList.remove("hidden");
+      overlay.classList.add("flex");
+    };
+
+    const disableButton = () => {
+      generateButton.disabled = true;
+      generateButton.classList.add("opacity-70", "cursor-not-allowed");
+    };
+
+    const updateProgress = () => {
+      let progress = 0;
+      let stepIndex = 0;
+
+      progressInterval = setInterval(() => {
+        progress += Math.random() * 12;
+
+        if (progress > 95) {
+          progress = 95;
+        }
+
+        progressBar.style.width = `${progress}%`;
+
+        if (stepIndex < loadingSteps.length) {
+          progressText.textContent = loadingSteps[stepIndex];
+          stepIndex++;
+        }
+      }, 450);
+    };
+
+    form.addEventListener("submit", () => {
+      showOverlay();
+      disableButton();
+      updateProgress();
+    });
+  });
+</script>
+
+<div
+  id="loadingOverlay"
+  class="fixed inset-0 bg-slate-900/70 backdrop-blur-sm z-50 hidden items-center justify-center"
+>
+  <div class="w-full max-w-md bg-white rounded-3xl shadow-2xl p-8 text-center">
+    <div
+      class="w-20 h-20 mx-auto rounded-3xl bg-blue-100 flex items-center justify-center text-4xl mb-6 animate-pulse"
+    >
+      🤖
+    </div>
+
+    <h2 class="text-3xl font-extrabold text-slate-900 mb-3">
+      Generating AI Suggestion
+    </h2>
+
+    <p class="text-slate-500 mb-8">
+      Ollama AI is generating professional user data...
+    </p>
+
+    <div class="w-full h-4 bg-slate-200 rounded-full overflow-hidden">
+      <div
+        id="progressBar"
+        class="h-full bg-blue-600 rounded-full transition-all duration-300"
+        style="width: 0%"
+      ></div>
+    </div>
+
+    <div id="progressText" class="mt-4 text-sm font-semibold text-slate-600">
+      Initializing AI engine...
+    </div>
+  </div>
+</div>
+
+<div class="min-h-screen bg-slate-100 py-10">
+  <div class="max-w-4xl mx-auto px-4">
+    <div class="bg-white rounded-3xl shadow-sm overflow-hidden">
+      <div class="p-8 border-b border-slate-200">
+        <div class="flex items-center gap-4 mb-4">
+          <div
+            class="w-16 h-16 rounded-3xl bg-blue-100 flex items-center justify-center text-3xl"
+          >
+            🤖
+          </div>
+
+          <div>
+            <h1 class="text-4xl font-extrabold text-slate-900">
+              AI User Suggestion
+            </h1>
+
+            <p class="text-slate-500 text-lg mt-1">
+              Generate professional user profiles using Ollama AI
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="p-8">
+        <form
+          id="aiForm"
+          method="POST"
+          action="/ai/user-suggestion"
+          class="space-y-6"
+        >
+          <div>
+            <label class="block text-sm font-bold text-slate-700 mb-3">
+              AI Prompt
+            </label>
+
+            <textarea
+              name="input"
+              rows="5"
+              placeholder="Example: senior golang backend developer from Bangkok"
+              required
+              class="w-full rounded-2xl border border-slate-300 bg-white px-5 py-4 text-slate-900 placeholder-slate-400 shadow-sm outline-none transition focus:border-blue-500 focus:ring-4 focus:ring-blue-100"
+            >
+{{ .Input }}</textarea
+            >
+          </div>
+
+          <div class="flex flex-col sm:flex-row gap-4">
+            <button
+              id="generateButton"
+              type="submit"
+              class="inline-flex items-center justify-center px-6 py-4 rounded-2xl bg-blue-600 hover:bg-blue-700 transition text-white font-semibold shadow-sm"
+            >
+              🚀 Generate Suggestion
+            </button>
+
+            <a
+              href="/"
+              class="inline-flex items-center justify-center px-6 py-4 rounded-2xl bg-slate-200 hover:bg-slate-300 transition text-slate-700 font-semibold"
+            >
+              🏠 Back Dashboard
+            </a>
+          </div>
+        </form>
+      </div>
+
+      {{ if .Error }}
+
+      <div class="px-8 pb-8">
+        <div
+          class="rounded-2xl border border-red-200 bg-red-100 px-5 py-4 text-red-700 font-medium"
+        >
+          ⚠️ {{ .Error }}
+        </div>
+      </div>
+
+      {{ end }} {{ if .Result }}
+
+      <div class="px-8 pb-8">
+        <div class="rounded-3xl border border-slate-200 bg-slate-50 p-8">
+          <div class="flex items-center gap-4 mb-8">
+            <div
+              class="w-16 h-16 rounded-3xl bg-green-100 flex items-center justify-center text-3xl"
+            >
+              ✨
+            </div>
+
+            <div>
+              <h2 class="text-3xl font-bold text-slate-900">
+                AI Generated Result
+              </h2>
+
+              <p class="text-slate-500 mt-1">
+                Structured response from Ollama AI
+              </p>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div
+              class="rounded-2xl bg-white border border-slate-200 p-6 shadow-sm"
+            >
+              <div class="text-sm font-bold text-slate-500 mb-2">Full Name</div>
+
+              <div class="text-2xl font-bold text-slate-900">
+                {{ .Result.Name }}
+              </div>
+            </div>
+
+            <div
+              class="rounded-2xl bg-white border border-slate-200 p-6 shadow-sm"
+            >
+              <div class="text-sm font-bold text-slate-500 mb-2">
+                Email Address
+              </div>
+
+              <div class="text-xl font-semibold text-slate-900 break-all">
+                {{ .Result.Email }}
+              </div>
+            </div>
+
+            <div
+              class="rounded-2xl bg-white border border-slate-200 p-6 shadow-sm md:col-span-2"
+            >
+              <div class="text-sm font-bold text-slate-500 mb-3">
+                Suggested Role
+              </div>
+
+              <div
+                class="inline-flex items-center px-5 py-3 rounded-full bg-blue-100 text-blue-700 text-lg font-bold"
+              >
+                {{ .Result.Role }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {{ end }}
+    </div>
+  </div>
+</div>
+
+{{ template "footer" . }}

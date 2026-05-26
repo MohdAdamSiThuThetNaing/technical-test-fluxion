@@ -446,13 +446,7 @@ This project includes Copilot-inspired AI workflow features powered by Ollama.
 
 ### Example
 
-```bash
-curl -X POST http://localhost:8080/ai/user-suggestion \
--H "Content-Type: application/json" \
--d '{
-  "prompt":"Create a senior backend engineer user"
-}'
-```
+AI User Suggestion
 
 #### Input
 

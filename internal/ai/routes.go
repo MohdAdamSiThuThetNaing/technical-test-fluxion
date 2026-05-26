@@ -17,6 +17,12 @@ func RegisterRoutes(r *gin.Engine) {
 		TestAI,
 	)
 
+	aiRoutes.GET(
+		"/user-suggestion",
+		guard.AuthMiddleware(),
+		ShowUserSuggestion,
+	)
+
 	// Public route
 	aiRoutes.POST(
 		"/user-suggestion",
