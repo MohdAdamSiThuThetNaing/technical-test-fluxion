@@ -10,7 +10,7 @@ import (
 
 func PublishAuditLog(
 	c *gin.Context,
-	event string,
+	event Event,
 	userID string,
 	email string,
 	name string,
@@ -18,7 +18,7 @@ func PublishAuditLog(
 ) {
 
 	queue.Publish(gin.H{
-		"event":        event,
+		"event":        string(event),
 		"user_id":      userID,
 		"user_email":   email,
 		"updated_name": name,

@@ -8,22 +8,44 @@ import (
 	"github.com/google/uuid"
 	"golang.org/x/crypto/bcrypt"
 
+	"github.com/MohdAdamSiThuThetNaing/technical-test-fluxion/internal/audit"
 	"github.com/MohdAdamSiThuThetNaing/technical-test-fluxion/internal/db"
 	"github.com/MohdAdamSiThuThetNaing/technical-test-fluxion/internal/queue"
+)
+
+type UserReason string
+
+const (
+
+	EMAIL_ALREADY_EXISTS UserReason = "EMAIL_ALREADY_EXISTS"
+
+	USER_NOT_FOUND UserReason = "USER_NOT_FOUND"
+
+	ADMIN_ACTION UserReason = "ADMIN_ACTION"
 )
 
 func ListUsers(c *gin.Context) {
 
 	var usersList []User
+
 	db.DB.Find(&usersList)
-	c.HTML(http.StatusOK, "users.html", gin.H{
-		"Users": usersList,
-	})
+
+	c.HTML(
+		http.StatusOK,
+		"users.html",
+		gin.H{
+			"Users": usersList,
+		},
+	)
 }
 
 func ShowCreateUser(c *gin.Context) {
 
-	c.HTML(http.StatusOK, "create-user.html", nil)
+	c.HTML(
+		http.StatusOK,
+		"create-user.html",
+		nil,
+	)
 }
 
 func CreateUser(c *gin.Context) {
@@ -33,13 +55,18 @@ func CreateUser(c *gin.Context) {
 	password := c.PostForm("password")
 
 	var existingUser User
+
 	if err := db.DB.
 		Where("email = ?", email).
 		First(&existingUser).Error; err == nil {
 
-		c.HTML(http.StatusBadRequest, "create-user.html", gin.H{
-			"Error": "Email already exists",
-		})
+		c.HTML(
+			http.StatusBadRequest,
+			"create-user.html",
+			gin.H{
+				"Error": string(EMAIL_ALREADY_EXISTS),
+			},
+		)
 		return
 	}
 
@@ -58,20 +85,24 @@ func CreateUser(c *gin.Context) {
 	db.DB.Create(&user)
 
 	queue.Publish(gin.H{
-		"event":        "USER_CREATED",
+		"event":        string(audit.USER_CREATED),
 		"user_id":      user.ID.String(),
 		"user_email":   user.Email,
 		"updated_name": user.Name,
-		"action_by":    "admin",
+		"action_by":    string(ADMIN_ACTION),
 		"created_at":   time.Now(),
 	})
 
-	c.Redirect(http.StatusFound, "/users")
+	c.Redirect(
+		http.StatusFound,
+		"/users",
+	)
 }
 
 func ShowEditUser(c *gin.Context) {
 
 	id := c.Param("id")
+
 	var user User
 
 	result := db.DB.
@@ -79,19 +110,26 @@ func ShowEditUser(c *gin.Context) {
 		First(&user)
 
 	if result.Error != nil {
-
-		c.String(http.StatusNotFound, "User not found")
+		c.String(
+			http.StatusNotFound,
+			string(USER_NOT_FOUND),
+		)
 		return
 	}
 
-	c.HTML(http.StatusOK, "edit-user.html", gin.H{
-		"User": user,
-	})
+	c.HTML(
+		http.StatusOK,
+		"edit-user.html",
+		gin.H{
+			"User": user,
+		},
+	)
 }
 
 func UpdateUser(c *gin.Context) {
 
 	id := c.Param("id")
+
 	var user User
 
 	result := db.DB.
@@ -99,23 +137,30 @@ func UpdateUser(c *gin.Context) {
 		First(&user)
 
 	if result.Error != nil {
-
-		c.String(http.StatusNotFound, "User not found")
+		c.String(
+			http.StatusNotFound,
+			string(USER_NOT_FOUND),
+		)
 		return
 	}
 
 	name := c.PostForm("name")
 	email := c.PostForm("email")
+
 	var existingUser User
 
 	if err := db.DB.
 		Where("email = ? AND id != ?", email, id).
 		First(&existingUser).Error; err == nil {
 
-		c.HTML(http.StatusBadRequest, "edit-user.html", gin.H{
-			"User":  user,
-			"Error": "Email already exists",
-		})
+		c.HTML(
+			http.StatusBadRequest,
+			"edit-user.html",
+			gin.H{
+				"User":  user,
+				"Error": string(EMAIL_ALREADY_EXISTS),
+			},
+		)
 		return
 	}
 
@@ -124,32 +169,47 @@ func UpdateUser(c *gin.Context) {
 	db.DB.Save(&user)
 
 	queue.Publish(gin.H{
-		"event":        "USER_UPDATED",
+		"event":        string(audit.USER_UPDATED),
 		"user_id":      user.ID.String(),
 		"user_email":   user.Email,
 		"updated_name": user.Name,
-		"action_by":    "admin",
+		"action_by":    string(ADMIN_ACTION),
 		"created_at":   time.Now(),
 	})
 
-	c.Redirect(http.StatusFound, "/users")
+	c.Redirect(
+		http.StatusFound,
+		"/users",
+	)
 }
 
 func DeleteUser(c *gin.Context) {
 
 	id := c.Param("id")
+
 	var user User
-	db.DB.Where("id = ?", id).First(&user)
-	db.DB.Delete(&User{}, "id = ?", id)
+
+	db.DB.
+		Where("id = ?", id).
+		First(&user)
+
+	db.DB.Delete(
+		&User{},
+		"id = ?",
+		id,
+	)
 
 	queue.Publish(gin.H{
-		"event":        "USER_DELETED",
+		"event":        string(audit.USER_DELETED),
 		"user_id":      user.ID.String(),
 		"user_email":   user.Email,
 		"updated_name": user.Name,
-		"action_by":    "admin",
+		"action_by":    string(ADMIN_ACTION),
 		"created_at":   time.Now(),
 	})
 
-	c.Redirect(http.StatusFound, "/users")
+	c.Redirect(
+		http.StatusFound,
+		"/users",
+	)
 }

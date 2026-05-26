@@ -1,0 +1,30 @@
+package audit
+
+type Event string
+
+const (
+
+	// Authentication Events
+
+	AUTH_LOGIN_SUCCESS Event = "AUTH_LOGIN_SUCCESS"
+
+	AUTH_LOGIN_FAILED Event = "AUTH_LOGIN_FAILED"
+
+	AUTH_LOGOUT Event = "AUTH_LOGOUT"
+
+	// User Events
+
+	USER_CREATED Event = "USER_CREATED"
+
+	USER_UPDATED Event = "USER_UPDATED"
+
+	USER_DELETED Event = "USER_DELETED"
+
+	// AI Events
+
+	AI_SUGGESTION_STARTED Event = "AI_SUGGESTION_STARTED"
+
+	AI_SUGGESTION_SUCCESS Event = "AI_SUGGESTION_SUCCESS"
+
+	AI_SUGGESTION_FAILED Event = "AI_SUGGESTION_FAILED"
+)

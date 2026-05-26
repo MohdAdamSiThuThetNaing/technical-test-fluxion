@@ -23,9 +23,9 @@ func RegisterRoutes(r *gin.Engine) {
 		ShowUserSuggestion,
 	)
 
-	// Public route
 	aiRoutes.POST(
 		"/user-suggestion",
+		guard.AuthMiddleware(),
 		SuggestUser,
 	)
 }

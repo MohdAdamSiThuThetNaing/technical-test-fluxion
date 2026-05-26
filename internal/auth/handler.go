@@ -12,9 +12,24 @@ import (
 	"github.com/MohdAdamSiThuThetNaing/technical-test-fluxion/internal/users"
 )
 
+type AuthReason string
+
+const (
+
+	USER_NOT_FOUND AuthReason = "USER_NOT_FOUND"
+
+	INVALID_PASSWORD AuthReason = "INVALID_PASSWORD"
+
+	UNKNOWN_USER_ID AuthReason = "UNKNOWN"
+)
+
 func ShowLogin(c *gin.Context) {
 
-	c.HTML(http.StatusOK, "login.html", nil)
+	c.HTML(
+		http.StatusOK,
+		"login.html",
+		nil,
+	)
 }
 
 func Login(c *gin.Context) {
@@ -28,16 +43,14 @@ func Login(c *gin.Context) {
 		Where("email = ?", email).
 		First(&user).Error
 
-	// User not found
 	if err != nil {
-
 		audit.PublishAuditLog(
 			c,
-			"AUTH_LOGIN_FAILED",
-			"UNKNOWN",
+			audit.AUTH_LOGIN_FAILED,
+			string(UNKNOWN_USER_ID),
 			email,
 			"",
-			"USER_NOT_FOUND",
+			string(USER_NOT_FOUND),
 		)
 
 		c.HTML(
@@ -50,7 +63,6 @@ func Login(c *gin.Context) {
 		return
 	}
 
-	// Invalid password
 	err = bcrypt.CompareHashAndPassword(
 		[]byte(user.Password),
 		[]byte(password),
@@ -59,11 +71,11 @@ func Login(c *gin.Context) {
 	if err != nil {
 		audit.PublishAuditLog(
 			c,
-			"AUTH_LOGIN_FAILED",
+			audit.AUTH_LOGIN_FAILED,
 			user.ID.String(),
 			user.Email,
 			user.Name,
-			"INVALID_PASSWORD",
+			string(INVALID_PASSWORD),
 		)
 
 		c.HTML(
@@ -96,26 +108,30 @@ func Login(c *gin.Context) {
 
 	audit.PublishAuditLog(
 		c,
-		"AUTH_LOGIN_SUCCESS",
+		audit.AUTH_LOGIN_SUCCESS,
 		user.ID.String(),
 		user.Email,
 		user.Name,
 		"",
 	)
 
-	c.Redirect(http.StatusFound, "/")
+	c.Redirect(
+		http.StatusFound,
+		"/",
+	)
 }
 
 func Logout(c *gin.Context) {
 
 	session := sessions.Default(c)
+
 	userID := session.Get("user_id")
 	userEmail := session.Get("user_email")
 	userName := session.Get("user_name")
 
 	audit.PublishAuditLog(
 		c,
-		"AUTH_LOGOUT",
+		audit.AUTH_LOGOUT,
 		toString(userID),
 		toString(userEmail),
 		toString(userName),
@@ -124,8 +140,8 @@ func Logout(c *gin.Context) {
 
 	session.Clear()
 	err := session.Save()
-	if err != nil {
 
+	if err != nil {
 		c.HTML(
 			http.StatusInternalServerError,
 			"login.html",
@@ -136,7 +152,10 @@ func Logout(c *gin.Context) {
 		return
 	}
 
-	c.Redirect(http.StatusFound, "/login")
+	c.Redirect(
+		http.StatusFound,
+		"/login",
+	)
 }
 
 func toString(value interface{}) string {
@@ -149,5 +168,6 @@ func toString(value interface{}) string {
 	if !ok {
 		return ""
 	}
+
 	return str
 }
