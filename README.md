@@ -128,43 +128,44 @@ go test ./... -v
 ├── Dockerfile
 ├── Makefile
 ├── README.md
-├── api/
-├── cmd/
-│ ├── api/
-│ │ └── main.go
-│ └── worker/
-│ └── main.go
+├── api
+├── cmd
+│   ├── api
+│   └── worker
 ├── docker-compose.yml
-├── docs/
+├── docs
+│   └── DOCUMENT.md
 ├── go.mod
 ├── go.sum
-├── internal/
-│ ├── ai/
-│ ├── auth/
-│ ├── dashboard/
-│ ├── db/
-│ ├── guard/
-│ ├── logs/
-│ ├── migration/
-│ ├── queue/
-│ └── users/
-├── templates/
-│ ├── dashboard/
-│ ├── layouts/
-│ ├── login.html
-│ ├── logs/
-│ ├── tests/
-│ └── users/
+├── internal
+│   ├── ai
+│   ├── audit
+│   ├── auth
+│   ├── dashboard
+│   ├── db
+│   ├── guard
+│   ├── logs
+│   ├── migration
+│   ├── queue
+│   └── users
+├── templates
+│   ├── ai-suggestion
+│   ├── dashboard
+│   ├── layouts
+│   ├── login.html
+│   ├── logs
+│   ├── tests
+│   └── users
 ├── test-results.json
-└── tests/
-├── ai_test.go
-├── handler.go
-├── handler_test.go
-├── logs_test.go
-├── queue_test.go
-├── repository_test.go
-├── routes.go
-└── user_service_test.go
+└── tests
+    ├── ai_test.go
+    ├── handler.go
+    ├── handler_test.go
+    ├── logs_test.go
+    ├── queue_test.go
+    ├── repository_test.go
+    ├── routes.go
+    └── user_service_test.go
 ```
 
 ---
