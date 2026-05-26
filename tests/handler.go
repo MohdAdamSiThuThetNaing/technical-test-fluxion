@@ -31,13 +31,10 @@ func ShowTests(c *gin.Context) {
 	}
 
 	lines := splitLines(string(file))
-
 	testMap := make(map[string]TestResult)
 
 	for _, line := range lines {
-
 		var result TestResult
-
 		err := json.Unmarshal(
 			[]byte(line),
 			&result,
@@ -55,7 +52,6 @@ func ShowTests(c *gin.Context) {
 	var results []TestResult
 
 	for _, result := range testMap {
-
 		results = append(
 			results,
 			result,
@@ -77,16 +73,12 @@ func splitLines(s string) []string {
 	current := ""
 
 	for _, ch := range s {
-
 		if ch == '\n' {
-
 			lines = append(lines, current)
 			current = ""
 			continue
 		}
-
 		current += string(ch)
 	}
-
 	return lines
 }
