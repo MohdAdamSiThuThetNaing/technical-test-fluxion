@@ -2,6 +2,7 @@ package main
 
 import (
 	"html/template"
+	"time"
 
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-contrib/sessions/cookie"
@@ -38,14 +39,16 @@ func main() {
 		),
 	)
 
-	// Load root-level templates
 	tmpl := template.Must(
-		template.New("").ParseGlob(
-			"templates/*.html",
-		),
+		template.New("").
+			Funcs(template.FuncMap{
+				"currentYear": func() int {
+					return time.Now().Year()
+				},
+			}).
+			ParseGlob("templates/*.html"),
 	)
 
-	// Load nested templates
 	template.Must(
 		tmpl.ParseGlob(
 			"templates/*/*.html",

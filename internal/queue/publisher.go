@@ -4,27 +4,24 @@ import (
 	"encoding/json"
 	"log"
 	"os"
+	"time"
 
 	amqp "github.com/rabbitmq/amqp091-go"
 )
 
 func Publish(data interface{}) {
 
-	conn, err := amqp.Dial(
-		os.Getenv("RABBITMQ_URL"),
-	)
-
+	conn, err := amqp.Dial(os.Getenv("RABBITMQ_URL"))
 	if err != nil {
-		log.Println(err)
+		log.Printf("rabbitmq connection error: %v", err)
 		return
 	}
 
 	defer conn.Close()
-
 	ch, err := conn.Channel()
 
 	if err != nil {
-		log.Println(err)
+		log.Printf("rabbitmq channel error: %v", err)
 		return
 	}
 
@@ -40,11 +37,16 @@ func Publish(data interface{}) {
 	)
 
 	if err != nil {
-		log.Println(err)
+		log.Printf("queue declare error: %v", err)
 		return
 	}
 
-	body, _ := json.Marshal(data)
+	body, err := json.Marshal(data)
+
+	if err != nil {
+		log.Printf("json marshal error: %v", err)
+		return
+	}
 
 	err = ch.Publish(
 		"",
@@ -52,15 +54,17 @@ func Publish(data interface{}) {
 		false,
 		false,
 		amqp.Publishing{
-			ContentType: "application/json",
-			Body:        body,
+			ContentType:  "application/json",
+			DeliveryMode: amqp.Persistent,
+			Timestamp:    time.Now(),
+			Body:         body,
 		},
 	)
 
 	if err != nil {
-		log.Println(err)
+		log.Printf("message publish error: %v", err)
 		return
 	}
 
-	log.Println("Event published")
+	log.Println("event published successfully")
 }

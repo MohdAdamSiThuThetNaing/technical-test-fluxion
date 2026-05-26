@@ -23,16 +23,18 @@ func Login(c *gin.Context) {
 	password := c.PostForm("password")
 
 	var user users.User
+
 	err := db.DB.
 		Where("email = ?", email).
 		First(&user).Error
 
 	// User not found
 	if err != nil {
+
 		audit.PublishAuditLog(
 			c,
 			"AUTH_LOGIN_FAILED",
-			"",
+			"UNKNOWN",
 			email,
 			"",
 			"USER_NOT_FOUND",
@@ -45,7 +47,6 @@ func Login(c *gin.Context) {
 				"Error": "Invalid credentials",
 			},
 		)
-
 		return
 	}
 
@@ -72,17 +73,27 @@ func Login(c *gin.Context) {
 				"Error": "Invalid credentials",
 			},
 		)
-
 		return
 	}
 
 	session := sessions.Default(c)
-
 	session.Set("authenticated", true)
 	session.Set("user_id", user.ID.String())
 	session.Set("user_email", user.Email)
 	session.Set("user_name", user.Name)
-	session.Save()
+	err = session.Save()
+
+	if err != nil {
+		c.HTML(
+			http.StatusInternalServerError,
+			"login.html",
+			gin.H{
+				"Error": "Failed to save session",
+			},
+		)
+		return
+	}
+
 	audit.PublishAuditLog(
 		c,
 		"AUTH_LOGIN_SUCCESS",
@@ -91,14 +102,52 @@ func Login(c *gin.Context) {
 		user.Name,
 		"",
 	)
+
 	c.Redirect(http.StatusFound, "/")
 }
 
 func Logout(c *gin.Context) {
 
 	session := sessions.Default(c)
+	userID := session.Get("user_id")
+	userEmail := session.Get("user_email")
+	userName := session.Get("user_name")
+
+	audit.PublishAuditLog(
+		c,
+		"AUTH_LOGOUT",
+		toString(userID),
+		toString(userEmail),
+		toString(userName),
+		"",
+	)
+
 	session.Clear()
-	session.Save()
+	err := session.Save()
+	if err != nil {
+
+		c.HTML(
+			http.StatusInternalServerError,
+			"login.html",
+			gin.H{
+				"Error": "Failed to logout",
+			},
+		)
+		return
+	}
 
 	c.Redirect(http.StatusFound, "/login")
+}
+
+func toString(value interface{}) string {
+
+	if value == nil {
+		return ""
+	}
+
+	str, ok := value.(string)
+	if !ok {
+		return ""
+	}
+	return str
 }
